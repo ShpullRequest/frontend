@@ -1,25 +1,28 @@
 {
-  "name": "vkma-template",
+  "name": "polivalich",
   "version": "1.0.0",
-  "description": "📍 Шаблон для мини-приложений",
+  "description": "Приложения для управления Поливалычем",
   "license": "MIT",
   "author": "Nikita Koshelenko <nikitakoschelenko@gmail.com>",
   "scripts": {
     "build": "tsc && vite build",
     "deploy": "vk-miniapps-deploy",
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0 --port 10888",
     "lint": "eslint --fix ./src/",
     "format": "prettier --write ./src/",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=10888 app_id=51760351 endpoints=[web]"
   },
   "dependencies": {
     "@itznevikat/router": "0.1.0-beta28",
     "@vkontakte/icons": "^2.0.1",
     "@vkontakte/vk-bridge": "npm:@mntm/painless-bridge@4.1.0",
+    "@vkontakte/vk-tunnel": "^0.1.4",
     "@vkontakte/vkjs": "^0.29.0",
     "@vkontakte/vkui": "^5.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

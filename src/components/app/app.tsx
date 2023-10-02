@@ -10,7 +10,7 @@ import {
 } from '@vkontakte/vkui'
 import { BREAKPOINTS } from '@vkontakte/vkui/dist/shared/breakpoints'
 
-import { Layout, SnackbarProvider, UserProvider } from '../'
+import { Layout } from '../'
 
 import '@vkontakte/vkui/dist/vkui.css'
 import './app.css'
@@ -43,11 +43,7 @@ export const App: FC = () => {
     <ConfigProvider platform={platform}>
       <AdaptivityProvider>
         <AppRoot>
-          <SnackbarProvider>
-            <UserProvider>
               <Layout />
-            </UserProvider>
-          </SnackbarProvider>
         </AppRoot>
       </AdaptivityProvider>
     </ConfigProvider>

@@ -29,15 +29,16 @@ import {
 import { classNamesString } from '@vkontakte/vkui/dist/lib/classNames'
 
 import { ErrorSnackbar, SuccessSnackbar } from '../../components'
-import { useSnackbar, useUser } from '../../hooks'
+import { useSnackbarStore, useUserStore } from '../../store'
 
 import './home.css'
 
 export const Home: FC<NavIdProps> = (props) => {
   const platform = usePlatform()
 
-  const { user, setUser } = useUser()
-  const { setSnackbar } = useSnackbar()
+  const user = useUserStore.use.user()
+  const  setUser = useUserStore.use.setUser()
+  const setSnackbar = useSnackbarStore.use.setSnackbar()
 
   const { setActionRefHandler } = useActionRef(() =>
     push('/?popout=test-action-sheet')

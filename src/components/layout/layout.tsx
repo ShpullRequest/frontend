@@ -20,18 +20,19 @@ import {
 import { Components, Fallback, Home, Info, Persik } from '../../pages'
 import { TestModalCard } from '../../modals'
 import { TestActionSheet, TestAlert } from '../../popouts'
-import { useSnackbar } from '../../hooks'
+
 
 import { LayoutNav } from './nav'
 import { LayoutSidebar } from './sidebar'
 import { LayoutTabbar } from './tabbar'
 
 import './layout.css'
+import { useSnackbarStore } from '../../store'
 
 export const Layout: FC = () => {
   const platform = usePlatform()
   const { popout } = useParams()
-  const { snackbar } = useSnackbar()
+  const snackbar = useSnackbarStore.use.snackbar()
 
   return (
     <Match fallbackURL="/404">

@@ -6,17 +6,16 @@ import {
 } from '@vkontakte/icons'
 import { Snackbar, SnackbarProps } from '@vkontakte/vkui'
 
-import { useSnackbar } from '../../hooks'
-
 import './snackbar.css'
+import { useSnackbarStore } from '../../store'
 
 type ParentSnackbarProps = Omit<SnackbarProps, 'onClose'>
 
 export const ParentSnackbar: FC<ParentSnackbarProps> = ({
   children,
   ...rest
-}) => {
-  const { setSnackbar } = useSnackbar()
+}) => {   
+  const setSnackbar = useSnackbarStore.use.setSnackbar()
 
   return (
     <Snackbar onClose={() => setSnackbar(null)} {...rest}>

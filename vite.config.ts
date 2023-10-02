@@ -18,7 +18,8 @@ export default defineConfig({
   },
 
   server: {
-    https: true,
-    host: true
+    hmr: {
+      clientPort: 443
+    }
   }
 })
