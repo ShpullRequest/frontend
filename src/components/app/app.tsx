@@ -14,6 +14,7 @@ import { Layout } from '../'
 
 import '@vkontakte/vkui/dist/vkui.css'
 import './app.css'
+import { ENV } from '@env/index'
 
 export const App: FC = () => {
   // INFO: VKUI не умеет нормально определять desktop вне фрейма,
@@ -38,6 +39,8 @@ export const App: FC = () => {
   useEffect(() => {
     send('VKWebAppInit')
   }, [])
+
+
 
   return (
     <ConfigProvider platform={platform}>

@@ -37,7 +37,7 @@ export const Home: FC<NavIdProps> = (props) => {
   const platform = usePlatform()
 
   const user = useUserStore.use.user()
-  const  setUser = useUserStore.use.setUser()
+  const setUser = useUserStore.use.setUser()
   const setSnackbar = useSnackbarStore.use.setSnackbar()
 
   const { setActionRefHandler } = useActionRef(() =>
@@ -46,6 +46,7 @@ export const Home: FC<NavIdProps> = (props) => {
 
   useEffect(() => {
     send('VKWebAppGetUserInfo').then((value) => setUser(value))
+    console.log(window.location.href)
   }, [])
 
   const openScreenSpinner = async (): Promise<void> => {

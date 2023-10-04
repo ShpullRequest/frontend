@@ -11,6 +11,16 @@
         }
       }
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@env/*": ["src/env/*"],
+      "@components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["src/store/*"],
+      "@pages/*": ["src/pages/*"],
+      "@http/*": ["src/http/*"],
+    },
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -25,5 +35,5 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["./src", "./vite.config.ts"]
+  "include": ["src", "vite.config.ts"]
 }
