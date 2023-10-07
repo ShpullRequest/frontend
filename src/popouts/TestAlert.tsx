@@ -1,9 +1,11 @@
 import { FC } from 'react'
 
-import { back } from '@itznevikat/router'
 import { Alert, NavIdProps } from '@vkontakte/vkui'
+import { usePopoutStore } from '@/store'
 
 export const TestAlert: FC<NavIdProps> = () => {
+  const clearPopout = usePopoutStore.use.clearPopout()
+  
   return (
     <Alert
       actions={[
@@ -19,7 +21,7 @@ export const TestAlert: FC<NavIdProps> = () => {
         }
       ]}
       actionsLayout="horizontal"
-      onClose={back}
+      onClose={clearPopout}
       header="Подтверждение действия"
       text="Вы уверены, что вам стоило открывать это предупреждение?"
     />

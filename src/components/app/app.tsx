@@ -14,7 +14,8 @@ import { Layout } from '../'
 
 import '@vkontakte/vkui/dist/vkui.css'
 import './app.css'
-import { ENV } from '@env/index'
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 export const App: FC = () => {
   // INFO: VKUI не умеет нормально определять desktop вне фрейма,
@@ -41,15 +42,18 @@ export const App: FC = () => {
   }, [])
 
 
+  const queryClient = new QueryClient()
 
   return (
-    <ConfigProvider platform={platform}>
-      <AdaptivityProvider>
-        <AppRoot>
-              <Layout />
-        </AppRoot>
-      </AdaptivityProvider>
-    </ConfigProvider>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider platform={platform}>
+        <AdaptivityProvider>
+          <AppRoot>
+                <Layout />
+          </AppRoot>
+        </AdaptivityProvider>
+      </ConfigProvider>
+    </QueryClientProvider>
   )
 }
 

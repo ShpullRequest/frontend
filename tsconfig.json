@@ -20,6 +20,8 @@
       "@store/*": ["src/store/*"],
       "@pages/*": ["src/pages/*"],
       "@http/*": ["src/http/*"],
+      "@services/*": ["src/services/*"],
+      "@models/*": ["src/models/*"],
     },
     "allowJs": false,
     "skipLibCheck": true,

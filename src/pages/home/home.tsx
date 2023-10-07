@@ -21,6 +21,7 @@ import {
   Panel,
   PanelHeader,
   Platform,
+  ScreenSpinner,
   SimpleCell,
   Text,
   Title,
@@ -28,10 +29,11 @@ import {
 } from '@vkontakte/vkui'
 import { classNamesString } from '@vkontakte/vkui/dist/lib/classNames'
 
-import { ErrorSnackbar, SuccessSnackbar } from '../../components'
-import { useSnackbarStore, useUserStore } from '../../store'
+import { ErrorSnackbar, SuccessSnackbar } from '@/components'
+import { useModalStore, usePopoutStore, useSnackbarStore, useUserStore } from '@/store'
 
 import './home.css'
+import { TestActionSheet, TestAlert, TestModalCard } from '@/popouts'
 
 export const Home: FC<NavIdProps> = (props) => {
   const platform = usePlatform()
@@ -39,9 +41,12 @@ export const Home: FC<NavIdProps> = (props) => {
   const user = useUserStore.use.user()
   const setUser = useUserStore.use.setUser()
   const setSnackbar = useSnackbarStore.use.setSnackbar()
+  const clearPopout = usePopoutStore.use.clearPopout()
+	const setPopout = usePopoutStore.use.setPopout()
+	const setModal = useModalStore.use.setModal()
 
   const { setActionRefHandler } = useActionRef(() =>
-    push('/?popout=test-action-sheet')
+    setPopout(<TestActionSheet/>)
   )
 
   useEffect(() => {
@@ -49,19 +54,11 @@ export const Home: FC<NavIdProps> = (props) => {
     console.log(window.location.href)
   }, [])
 
-  const openScreenSpinner = async (): Promise<void> => {
-    replace('/?popout=screen-spinner')
 
-    // INFO: Блокируем нажатие кнопки назад
-    const unblock = block(() => void 0)
-
-    // INFO: Загрузка данных
-    setTimeout(() => {
-      // INFO: Разблокировка
-      unblock()
-      replace('/')
-    }, 2000)
-  }
+  const setLoadingScreenSpinner = () => {
+    setPopout(<ScreenSpinner state="loading" />);
+    setTimeout(clearPopout, 2000);
+  };
 
   return (
     <Panel {...props}>
@@ -114,10 +111,10 @@ export const Home: FC<NavIdProps> = (props) => {
       <Group>
         <SimpleCell
           before={<Icon28GhostOutline />}
-          onClick={() => push('/?modal=test-modal-card')}
+          onClick={() => setModal("TestModalCard")}
         >
           Показать модальную карточку
-        </SimpleCell>
+        </SimpleCell> 
       </Group>
 
       <Group>
@@ -130,14 +127,14 @@ export const Home: FC<NavIdProps> = (props) => {
 
         <SimpleCell
           before={<Icon28WarningTriangleOutline />}
-          onClick={() => push('/?popout=test-alert')}
+          onClick={() => setPopout(<TestAlert/>)}
         >
           Показать предупреждение
         </SimpleCell>
 
         <SimpleCell
           before={<Icon24Spinner width={28} />}
-          onClick={openScreenSpinner}
+          onClick={setLoadingScreenSpinner}
         >
           Показать экран загрузки
         </SimpleCell>
