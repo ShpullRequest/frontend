@@ -18,14 +18,14 @@ export const Info: FC<NavIdProps> = (props) => {
       <Group>
         <Link
           target="_blank"
-          href="https://github.com/ItzNeviKat/vkma-template"
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
           style={{ textDecoration: 'none' }}
         >
           <SimpleCell
             before={<Icon28QrCodeOutline />}
             after={<Icon28LinkOutline />}
           >
-            Шаблон на Github
+            Страница проекта
           </SimpleCell>
         </Link>
       </Group>

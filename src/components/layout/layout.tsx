@@ -1,9 +1,18 @@
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 
-import {Epic, Match, View, block, matchPopout, replace, useParams} from '@itznevikat/router'
-import {PanelHeader, Platform, ScreenSpinner, SplitCol, SplitLayout, usePlatform, ModalRoot} from '@vkontakte/vkui'
+import {
+	PanelHeader,
+	Platform,
+	SplitCol,
+	SplitLayout,
+	usePlatform,
+	ModalRoot,
+	Epic,
+	View,
+	useAdaptivityConditionalRender,
+} from '@vkontakte/vkui'
 
-import {Components, Fallback, Home, Info, Persik} from '../../pages'
+import {Components, Home, Info, Persik} from '@/pages'
 import {TestModalCard} from '@/popouts'
 
 import {LayoutNav} from './nav'
@@ -11,98 +20,72 @@ import {LayoutSidebar} from './sidebar'
 import {LayoutTabbar} from './tabbar'
 
 import './layout.css'
-import {TestService} from '@/services'
-import {testValidation, TestPayload} from '@/models'
-import {useMutation, useQueryClient} from '@tanstack/react-query'
 import {useModalStore, usePopoutStore, useSnackbarStore} from '@/store'
+import {useActiveVkuiLocation} from '@vkontakte/vk-mini-apps-router'
+import {URL} from '@/router'
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
 	const popout = usePopoutStore.use.popout()
-	const setPopout = usePopoutStore.use.setPopout()
 	const snackbar = useSnackbarStore.use.snackbar()
-  const modal = useModalStore.use.modal()
+	const modal = useModalStore.use.modal()
 
-	const queryClient = useQueryClient()
-	const {isLoading, isError, data, mutate} = useMutation({
-		mutationKey: ['test'],
-		mutationFn: (testPayload: TestPayload) => {
-			setPopout(<ScreenSpinner state="loading" />)
-			return TestService.test(testPayload)
-		},
-		onSuccess: (data) => {
-			console.log(data)
-		},
-		onError: (error) => {
-			console.error('there was an error', error)
-		},
-		onSettled: () => {
-		  setPopout(null)
-			queryClient.invalidateQueries({queryKey: ['test']})
-		},
-	})
-
-	// Мы имеем вохсожность использовать функцию mutate в люой части кода
-	// isLoading можно использовать для отрисовки лоадера
-	// data для отображения результата
-	useEffect(() => {
-		if (!testValidation.safeParse({email: 'rik2>'}).success) {
-			return console.error('Произошла ошибка при валидации. Запрос не будет отправлен')
-		}
-		mutate({email: 'rikk@gmail.com'})
-	}, [])
-
+	/** Получаем текущую позицию */
+	const {panelsHistory, view: activeView, panel: activePanel} = useActiveVkuiLocation()
+	const {viewWidth} = useAdaptivityConditionalRender()
+	// Отрисовка всей навигации производится в роутере через передачу Id в  поля по типу activeModal
+	// Если я не хочу иметь какую-то конкретную ссылку на popout или modal. Я могу глобально передавать id в корневой компонент
 	return (
-		<Match fallbackURL="/404">
-			<SplitLayout
-				header={platform !== Platform.VKCOM && <PanelHeader separator={false} />}
-				modal={
-					<ModalRoot activeModal={modal}>
-						<TestModalCard id="TestModalCard" />
-					</ModalRoot>
-				}
-				/* eslint-disable react/jsx-key */
-				popout={popout}
-				aria-live="polite"
-				aria-busy={!!popout}
+		<SplitLayout
+			header={platform !== Platform.VKCOM && <PanelHeader separator={false} />}
+			modal={
+				<ModalRoot activeModal={modal}>
+					<TestModalCard id="TestModalCard" />
+				</ModalRoot>
+			}
+			popout={popout}
+			aria-live="polite"
+			aria-busy={!!popout}
+		>
+			<SplitCol
+				autoSpaced
+				width={650}
+				maxWidth={650}
 			>
-				<SplitCol
-					autoSpaced
-					width={650}
-					maxWidth={650}
+				<Epic
+					activeStory={activeView || URL.homeView}
+					tabbar={
+						platform !== Platform.VKCOM && (
+							<LayoutTabbar>
+								<LayoutNav mode="tabbarItem" />
+							</LayoutTabbar>
+						)
+					}
 				>
-					<Epic
-						nav="/"
-						tabbar={
-							platform !== Platform.VKCOM && (
-								<LayoutTabbar>
-									<LayoutNav mode="tabbarItem" />
-								</LayoutTabbar>
-							)
-						}
+					<View
+						activePanel={activePanel || URL.homePanel}
+						nav={URL.homeView}
+						history={panelsHistory}
 					>
-						<View nav="/">
-							<Home nav="/" />
-							<Persik nav="/persik" />
-							<Components nav="/components" />
+						<Home nav={URL.homePanel} />
+						<Persik nav={URL.persikPanel} />
+						<Components nav={URL.componentsPanel} />
+					</View>
 
-							<Fallback nav="/404" />
-						</View>
-
-						<View nav="/info">
-							<Info nav="/" />
-						</View>
-					</Epic>
-
-					{snackbar}
-				</SplitCol>
-
-				{platform === Platform.VKCOM && (
-					<LayoutSidebar>
-						<LayoutNav mode="cell" />
-					</LayoutSidebar>
-				)}
-			</SplitLayout>
-		</Match>
+					<View
+						nav={URL.infoView}
+						activePanel={activePanel || URL.infoPanel}
+					>
+						<Info nav={URL.infoPanel} />
+					</View>
+				</Epic>
+				{snackbar}
+			</SplitCol>
+			{platform === Platform.VKCOM && (
+				<LayoutSidebar>
+					<LayoutNav mode="cell" />
+				</LayoutSidebar>
+			)}
+		</SplitLayout>
 	)
 }

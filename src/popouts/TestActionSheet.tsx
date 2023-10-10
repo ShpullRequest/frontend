@@ -1,12 +1,56 @@
 import { FC } from 'react'
 
-import { useActionRef } from '@itznevikat/router'
-import { ActionSheet, ActionSheetItem, NavIdProps } from '@vkontakte/vkui'
-import { usePopoutStore } from '@/store'
+import { useActionRef } from '@/hooks'
+import { ActionSheet, ActionSheetItem, NavIdProps, ScreenSpinner } from '@vkontakte/vkui'
+import { usePopoutStore, useSnackbarStore } from '@/store'
+import { TestPayload, testValidation } from '@/models'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { TestService } from '@/services'
+import { ErrorSnackbar, SuccessSnackbar } from '@/components'
 
 export const TestActionSheet: FC<NavIdProps> = () => {
   const { actionRef } = useActionRef()
   const clearPopout = usePopoutStore.use.clearPopout()
+  const setPopout = usePopoutStore.use.setPopout()
+  const setSnackbar = useSnackbarStore.use.setSnackbar()
+
+
+  // Функция чтобы увидеть спиннер
+  function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+	const queryClient = useQueryClient()
+	const {isLoading, isError, data, mutate} = useMutation({
+		mutationKey: ['test'],
+		mutationFn: (testPayload: TestPayload) => {
+			setPopout(<ScreenSpinner state="loading" />)
+			return sleep(1000).then(() => TestService.test(testPayload))
+		},
+		onSuccess: (data) => {
+			console.log(data)
+      setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)
+		},
+		onError: (error) => {
+			console.error('there was an error', error)
+      setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)
+		},
+		onSettled: () => {
+			setPopout(null)
+			queryClient.invalidateQueries({queryKey: ['test']})
+		},
+	})
+
+	// Мы имеем вохсожность использовать функцию mutate в люой части кода
+	// isLoading можно использовать для отрисовки лоадера
+	// data для отображения результата
+	const testRequest = (payload: TestPayload) => {
+		if (!testValidation.safeParse(payload).success) {
+      return setSnackbar(<ErrorSnackbar>Произошла ошибка при валидации</ErrorSnackbar>)
+		}
+		mutate(payload)
+	}
+
   return (
     <ActionSheet
       onClose={clearPopout}
@@ -17,8 +61,10 @@ export const TestActionSheet: FC<NavIdProps> = () => {
       }
       toggleRef={actionRef}
     >
-      <ActionSheetItem autoClose >Первое действие</ActionSheetItem>
-      <ActionSheetItem autoClose>Второе действие</ActionSheetItem>
+      <ActionSheetItem autoClose 
+      onClick={() => testRequest({email: 'rikk@gmail.com'})}>Отправить запрос к API</ActionSheetItem>
+      <ActionSheetItem autoClose
+      onClick={() => testRequest({email: 'rikkgmailcom'})}>Отправить невалидные данные к API</ActionSheetItem>
       <ActionSheetItem autoClose mode="destructive">
         Опасное действие
       </ActionSheetItem>

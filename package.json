@@ -12,10 +12,10 @@
     "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=10888 app_id=51760351 endpoints=[web]"
   },
   "dependencies": {
-    "@itznevikat/router": "0.1.0-beta28",
     "@tanstack/react-query": "^4.35.7",
     "@vkontakte/icons": "^2.0.1",
     "@vkontakte/vk-bridge": "npm:@mntm/painless-bridge@4.1.0",
+    "@vkontakte/vk-mini-apps-router": "^1.1.1",
     "@vkontakte/vk-tunnel": "^0.1.4",
     "@vkontakte/vkjs": "^0.29.0",
     "@vkontakte/vkui": "^5.0.1",

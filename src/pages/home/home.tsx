@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { block, push, replace, useActionRef } from '@itznevikat/router'
+import { useActionRef } from '@/hooks'
 import {
   Icon24Spinner,
   Icon28ArticleOutline,
@@ -34,6 +34,8 @@ import { useModalStore, usePopoutStore, useSnackbarStore, useUserStore } from '@
 
 import './home.css'
 import { TestActionSheet, TestAlert, TestModalCard } from '@/popouts'
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
+import { URL } from '@/router'
 
 export const Home: FC<NavIdProps> = (props) => {
   const platform = usePlatform()
@@ -60,6 +62,8 @@ export const Home: FC<NavIdProps> = (props) => {
     setTimeout(clearPopout, 2000);
   };
 
+  const router = useRouteNavigator()
+
   return (
     <Panel {...props}>
       <PanelHeader>Главная</PanelHeader>
@@ -85,7 +89,7 @@ export const Home: FC<NavIdProps> = (props) => {
           <SimpleCell
             before={<Icon28PawOutline />}
             after={<Icon28ChevronRightOutline />}
-            onClick={() => push('/persik')}
+            onClick={() => router.push(URL.persikPanel)}
           >
             Перейти к Персику
           </SimpleCell>
@@ -93,7 +97,7 @@ export const Home: FC<NavIdProps> = (props) => {
           <SimpleCell
             before={<Icon28CompassOutline />}
             after={<Icon28ChevronRightOutline />}
-            onClick={() => push('/components')}
+            onClick={() => router.push(URL.componentsPanel)}
           >
             Перейти к компонентам
           </SimpleCell>
@@ -101,7 +105,7 @@ export const Home: FC<NavIdProps> = (props) => {
           <SimpleCell
             before={<Icon28ErrorOutline />}
             after={<Icon28ChevronRightOutline />}
-            onClick={() => push('/abobus')}
+            onClick={() => router.push(`/abobus`)}
           >
             Перейти к 404 странице
           </SimpleCell>

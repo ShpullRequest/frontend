@@ -1,6 +1,5 @@
 import { FC } from 'react'
 
-import { back } from '@itznevikat/router'
 import {
   Div,
   Group,
@@ -11,11 +10,14 @@ import {
 } from '@vkontakte/vkui'
 
 import './persik.css'
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
 
 export const Persik: FC<NavIdProps> = (props) => {
+  const router = useRouteNavigator()
+
   return (
     <Panel {...props}>
-      <PanelHeader before={<PanelHeaderBack onClick={back} />}>
+      <PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>
         Персик
       </PanelHeader>
 

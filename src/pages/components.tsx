@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { back } from '@itznevikat/router'
 import {
   Group,
   NavIdProps,
@@ -8,12 +7,15 @@ import {
   PanelHeaderBack
 } from '@vkontakte/vkui'
 
-import { ErrorPlaceholder, VoidPlaceholder } from '../components'
+import { ErrorPlaceholder, VoidPlaceholder } from '@/components'
+import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
 
 export const Components: FC<NavIdProps> = (props) => {
+  const router = useRouteNavigator()
+
   return (
     <Panel {...props}>
-      <PanelHeader before={<PanelHeaderBack onClick={back} />}>
+      <PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>
         Компоненты
       </PanelHeader>
 

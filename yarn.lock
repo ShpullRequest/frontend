@@ -241,7 +241,7 @@
     "@babel/plugin-syntax-jsx" "^7.18.6"
     "@babel/types" "^7.19.0"
 
-"@babel/runtime@^7.14.6", "@babel/runtime@^7.7.6":
+"@babel/runtime@^7.14.6":
   version "7.17.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
@@ -353,14 +353,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@itznevikat/router@0.1.0-beta28":
-  version "0.1.0-beta28"
-  resolved "https://registry.yarnpkg.com/@itznevikat/router/-/router-0.1.0-beta28.tgz#9dbe437305d8125342f2b43b12503c37eec04977"
-  integrity sha512-6gDWwgPYaQcAhZabR/NytZ7huAQhkMs8UK98Jqq60vdQtXsUzeI0o3eqJ+BmVnDh3HJ6tMWdMhG+tbfwsCKECQ==
-  dependencies:
-    history "^5.3.0"
-    react-children-utilities "^2.8.0"
-
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.3.2.tgz#c1aedc61e853f2bb9f5dfe6d4442d3b565b253b9"
@@ -434,6 +426,11 @@
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.2.tgz#830beaec4b4091a9e9398ac50f865ddea52186b9"
   integrity sha512-92FRmppjjqz29VMJ2dn+xdyXZBrMlE42AV6Kq6BwjWV7CNUW1hs2FtxSNLQE+gJhaZ6AAmYuO9y8dshhcBl7vA==
+
+"@remix-run/router@^1.7.1":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.9.0.tgz#9033238b41c4cbe1e961eccb3f79e2c588328cf6"
+  integrity sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==
 
 "@tanstack/eslint-plugin-query@^4.36.0":
   version "4.36.0"
@@ -626,6 +623,13 @@
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@mntm/painless-bridge/-/painless-bridge-4.1.0.tgz#6b7070400da8705f67a62b294f3db7d8489bda99"
   integrity sha512-32cqi0IPY2DJNwf6YK8ZRuMduTFIVf+dA3SSy1PFtwcQboSdxnDSFScMPR50jCqHHAs79MI4s5GoDr2i4ogMcQ==
+
+"@vkontakte/vk-mini-apps-router@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@vkontakte/vk-mini-apps-router/-/vk-mini-apps-router-1.1.1.tgz#1ec99562710c143514b8d2c28e2d6d7c2243f093"
+  integrity sha512-mTVRozPxaiC5cY789p2tLGU/lYboRWvK9iOYWgTz+tWutIKzNeaavYq1Eu0tTs61Zp+pjsMZ1AWmS+bTI03o1Q==
+  dependencies:
+    "@remix-run/router" "^1.7.1"
 
 "@vkontakte/vk-miniapps-deploy@^0.0.26":
   version "0.0.26"
@@ -2329,13 +2333,6 @@ he@^1.1.1:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-history@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/history/-/history-5.3.0.tgz#1548abaa245ba47992f063a0783db91ef201c73b"
-  integrity sha512-ZqaKwjjrAYUYfLG+htGaIIZ4nioX2L70ZUMIFysS3xvBsSG4x/n1V6TXV3N8ZYNuFGlDirFg32T7B6WOUPDYcQ==
-  dependencies:
-    "@babel/runtime" "^7.7.6"
-
 htmlparser2@^3.8.3:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.10.1.tgz#bd679dc3f59897b6a34bb10749c855bb53a9392f"
@@ -3551,11 +3548,6 @@ quick-format-unescaped@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/quick-format-unescaped/-/quick-format-unescaped-3.0.3.tgz#fb3e468ac64c01d22305806c39f121ddac0d1fb9"
   integrity sha512-dy1yjycmn9blucmJLXOfZDx1ikZJUi6E8bBZLnhPG5gBrVhHXx2xVyqqgKBubVNEXmx51dBACMHpoMQK/N/AXQ==
-
-react-children-utilities@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/react-children-utilities/-/react-children-utilities-2.8.0.tgz#ab6866249bcf1729fe463128de5e15074f43caaa"
-  integrity sha512-g42oRsZLrFJgCcIdK1lad1CWujNH4gh1Cp1lsMQpHWdDjWQ8gUlaBebgy2iXofyPEpfJ4T/xt4qWrvDkgVCCNg==
 
 react-dom@^18.2.0:
   version "18.2.0"

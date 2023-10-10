@@ -22,6 +22,7 @@
       "@http/*": ["src/http/*"],
       "@services/*": ["src/services/*"],
       "@models/*": ["src/models/*"],
+      "@router/*": ["src/router/*"],
     },
     "allowJs": false,
     "skipLibCheck": true,

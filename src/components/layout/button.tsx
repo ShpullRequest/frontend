@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react'
 
-import { push, useDeserialized } from '@itznevikat/router'
 import { Cell, TabbarItem } from '@vkontakte/vkui'
+import { useActiveVkuiLocation, useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
 
 type LayoutButtonProps = {
   mode: 'cell' | 'tabbarItem'
@@ -16,13 +16,16 @@ export const LayoutButton: FC<LayoutButtonProps> = ({
   before,
   children
 }) => {
-  const { view, panel } = useDeserialized()
 
-  const selected = story === view
+  const {view: activeView, panel: activePanel} = useActiveVkuiLocation()
+
+  const selected = story === activeView
+
+  const router = useRouteNavigator()
 
   const onClick = () => {
     // INFO: Похоже на нативное поведение
-    if (view === story) {
+    if (activeView === story) {
       if (window.scrollY !== 0) {
         return window.scrollTo({
           top: 0,
@@ -31,11 +34,16 @@ export const LayoutButton: FC<LayoutButtonProps> = ({
         })
       }
 
-      if (panel === '/') return
+      if (activePanel === '/') return
     }
 
-    push(story)
+    router.push(story)
   }
+
+  const activeStoryStyles = {
+    backgroundColor: 'var(--vkui--color_background_secondary)',
+    borderRadius: 8,
+  };
 
   return mode === 'cell' ? (
     <Cell
@@ -43,11 +51,8 @@ export const LayoutButton: FC<LayoutButtonProps> = ({
       before={before}
       style={
         selected
-          ? {
-              backgroundColor: 'var(--vkui--color_background_secondary_alpha)',
-              borderRadius: 8
-            }
-          : {}
+          ? activeStoryStyles
+          : undefined
       }
       onClick={onClick}
     >
