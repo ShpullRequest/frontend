@@ -1,31 +1,21 @@
-import { FC } from 'react'
-import {
-  Group,
-  NavIdProps,
-  Panel,
-  PanelHeader,
-  PanelHeaderBack
-} from '@vkontakte/vkui'
+import {FC} from 'react'
+import {CardGrid, Group, NavIdProps, Panel, PanelHeader, PanelHeaderBack} from '@vkontakte/vkui'
 
-import { ErrorPlaceholder, VoidPlaceholder } from '@/components'
-import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
+import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
+import {MeroCard} from './MeroCard'
 
 export const Components: FC<NavIdProps> = (props) => {
-  const router = useRouteNavigator()
+	const router = useRouteNavigator()
 
-  return (
-    <Panel {...props}>
-      <PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>
-        Компоненты
-      </PanelHeader>
+	return (
+		<Panel {...props}>
+			<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Карточки</PanelHeader>
 
-      <Group>
-        <VoidPlaceholder />
-      </Group>
-
-      <Group>
-        <ErrorPlaceholder />
-      </Group>
-    </Panel>
-  )
+			<Group>
+				<CardGrid size="l">
+					<MeroCard />
+				</CardGrid>
+			</Group>
+		</Panel>
+	)
 }

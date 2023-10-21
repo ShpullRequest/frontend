@@ -1,5 +1,7 @@
 import {FC, useEffect} from 'react'
 import {useActionRef} from '@/hooks'
+import {FC, useEffect} from 'react'
+import {useActionRef} from '@/hooks'
 import {
 	Icon24Spinner,
 	Icon28ArticleOutline,
@@ -10,9 +12,9 @@ import {
 	Icon28ErrorOutline,
 	Icon28GhostOutline,
 	Icon28PawOutline,
-	Icon28SlidersOutline,
 	Icon28WarningTriangleOutline,
 } from '@vkontakte/icons'
+import {send} from '@vkontakte/vk-bridge'
 import {send} from '@vkontakte/vk-bridge'
 import {
 	Avatar,
@@ -120,7 +122,25 @@ export const Home: FC<NavIdProps> = (props) => {
 					Показать модальную карточку
 				</SimpleCell>
 			</Group>
+			<Group>
+				<SimpleCell
+					before={<Icon28GhostOutline />}
+          onClick={() => {
+            console.log(Добавляем в глобальный стейт)
+            setModal('TestModalCard')
+          }}
+				>
+					Показать модальную карточку
+				</SimpleCell>
+			</Group>
 
+			<Group>
+				<SimpleCell
+					before={<Icon28ArticleOutline />}
+					onClick={setActionRefHandler}
+				>
+					Показать действия
+				</SimpleCell>
 			<Group>
 				<SimpleCell
 					before={<Icon28ArticleOutline />}
@@ -135,7 +155,20 @@ export const Home: FC<NavIdProps> = (props) => {
 				>
 					Показать предупреждение
 				</SimpleCell>
+				<SimpleCell
+					before={<Icon28WarningTriangleOutline />}
+					onClick={() => setPopout(<TestAlert />)}
+				>
+					Показать предупреждение
+				</SimpleCell>
 
+				<SimpleCell
+					before={<Icon24Spinner width={28} />}
+					onClick={setLoadingScreenSpinner}
+				>
+					Показать экран загрузки
+				</SimpleCell>
+			</Group>
 				<SimpleCell
 					before={<Icon24Spinner width={28} />}
 					onClick={setLoadingScreenSpinner}
@@ -151,7 +184,23 @@ export const Home: FC<NavIdProps> = (props) => {
 				>
 					Показать добрый снекбар
 				</SimpleCell>
+			<Group>
+				<SimpleCell
+					before={<Icon28CheckCircleOutline />}
+					onClick={() => setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)}
+				>
+					Показать добрый снекбар
+				</SimpleCell>
 
+				<SimpleCell
+					before={<Icon28CancelCircleOutline />}
+					onClick={() => setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)}
+				>
+					Показать злой снекбар
+				</SimpleCell>
+			</Group>
+		</Panel>
+	)
 				<SimpleCell
 					before={<Icon28CancelCircleOutline />}
 					onClick={() => setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)}
