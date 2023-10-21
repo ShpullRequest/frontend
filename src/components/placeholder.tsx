@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Placeholder } from '@vkontakte/vkui'
 
 export const VoidPlaceholder: FC = () => (
-  <Placeholder icon={<img src="/ghost.png" width="56" />} header="Пустота">
+  <Placeholder icon={<img src="/ghost.png" width="56" />} header="Пописать">
     Здесь ничего нет
   </Placeholder>
 )
