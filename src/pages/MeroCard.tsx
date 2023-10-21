@@ -2,7 +2,7 @@ import {FC} from 'react'
 import React from 'react'
 import {useModalStore} from '@/store'
 import {Icon28Like} from '@vkontakte/icons'
-import {ContentCard, NavIdProps, WriteBarIcon} from '@vkontakte/vkui'
+import {ContentCard, NavIdProps, Platform, WriteBarIcon, usePlatform} from '@vkontakte/vkui'
 import './MeroCard.css'
 
 export const MeroCard: FC<NavIdProps> = (props) => {
@@ -10,9 +10,11 @@ export const MeroCard: FC<NavIdProps> = (props) => {
 		position: 'relative',
 	}
 
+	const platform = usePlatform()
+
 	const cardIconStyle: React.CSSProperties = {
 		position: 'absolute',
-		top: '15px',
+		top: platform !== Platform.VKCOM ? 'unset' : '15px',
 		right: '20px',
 		zIndex: '100',
 	}

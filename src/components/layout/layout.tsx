@@ -14,6 +14,7 @@ import {
 } from '@vkontakte/vkui'
 
 import {Components, Home, Info, Persik} from '@/pages'
+import TestGPTPanel from '../testGPTpanel'
 import {TestModalCard} from '@/popouts'
 
 import {LayoutNav} from './nav'
@@ -31,6 +32,7 @@ export const Layout: FC = () => {
 	const popout = usePopoutStore.use.popout()
 	const snackbar = useSnackbarStore.use.snackbar()
 	const modal = useModalStore.use.modal()
+	const clearModal = useModalStore.use.clearModal()
 	// const clearModal = useModalStore.use.clearModal()
 	/** Получаем текущую позицию */
 	const {panelsHistory, view: activeView, panel: activePanel} = useActiveVkuiLocation()
@@ -51,7 +53,7 @@ export const Layout: FC = () => {
 			modal={
 				<ModalRoot
 					activeModal={modal}
-					// onClose={clearModal}
+					onClose={clearModal}
 				>
 					<TestModalCard id="TestModalCard" />
 				</ModalRoot>
@@ -69,7 +71,9 @@ export const Layout: FC = () => {
 					>
 						<Home nav={URL.homePanel} />
 						<Components nav={URL.componentsPanel} />
+						<TestGPTPanel nav={URL.testGPTPanel} />
 					</View>
+
 					<View
 						activePanel={activePanel || URL.personalPanel}
 						nav={URL.personalProfileView}
