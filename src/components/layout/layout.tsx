@@ -11,6 +11,7 @@ import {
 	View,
 	useAdaptivityConditionalRender,
 	Root,
+	Root,
 } from '@vkontakte/vkui'
 
 import {Components, Home, Info, Persik} from '@/pages'
@@ -53,6 +54,8 @@ export const Layout: FC = () => {
 			aria-live="polite"
 			aria-busy={!!popout}
 		>
+			<SplitCol autoSpaced>
+				<Root activeView={activeView || URL.homeView}>
 			<SplitCol autoSpaced>
 				<Root activeView={activeView || URL.homeView}>
 					<View
