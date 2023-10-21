@@ -17,17 +17,13 @@ import {
 import {send} from '@vkontakte/vk-bridge'
 import {
 	Avatar,
-	Card,
 	Gradient,
 	Group,
 	NavIdProps,
 	Panel,
 	PanelHeader,
-	PanelHeaderBack,
-	PanelHeaderContent,
 	Platform,
 	ScreenSpinner,
-	Search,
 	SimpleCell,
 	Text,
 	Title,
@@ -44,7 +40,7 @@ import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {Map} from '@/components/map'
 
-export const  Home: FC<NavIdProps> = (props) => {
+export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 
 	const user = useUserStore.use.user()
@@ -135,17 +131,6 @@ export const  Home: FC<NavIdProps> = (props) => {
 						console.log('Добавляем в глобальный стейт')
 						setModal('TestModalCard')
 					}}
-				>
-					Показать модальную карточку
-				</SimpleCell>
-			</Group>
-			<Group>
-				<SimpleCell
-					before={<Icon28GhostOutline />}
-          onClick={() => {
-            console.log(Добавляем в глобальный стейт)
-            setModal('TestModalCard')
-          }}
 				>
 					Показать модальную карточку
 				</SimpleCell>
