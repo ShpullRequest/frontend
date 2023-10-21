@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import { FC, useEffect } from "react";
 
 import {
 	PanelHeader,
@@ -24,6 +24,7 @@ import './layout.css'
 import {useModalStore, usePopoutStore, useSnackbarStore} from '@/store'
 import {useActiveVkuiLocation} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
+import { User } from "@pages/user";
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
@@ -36,6 +37,10 @@ export const Layout: FC = () => {
 	const {viewWidth} = useAdaptivityConditionalRender()
 	// Отрисовка всей навигации производится в роутере через передачу Id в  поля по типу activeModal
 	// Если я не хочу иметь какую-то конкретную ссылку на popout или modal. Я могу глобально передавать id в корневой компонент
+
+	useEffect(()=> {
+		console.log(panelsHistory)
+	}, [panelsHistory])
 	return (
 		<SplitLayout
 			header={platform !== Platform.VKCOM && <PanelHeader separator={false} />}
@@ -56,6 +61,14 @@ export const Layout: FC = () => {
 						history={panelsHistory}
 					>
 						<Home nav={URL.homePanel} />
+						<Components nav={URL.componentsPanel} />
+					</View>
+					<View
+						activePanel={activePanel || URL.personalPanel}
+						nav={URL.personalProfileView}
+						history={panelsHistory}
+					>
+						<User nav={URL.personalPanel} />
 					</View>
 				</Root>
 
