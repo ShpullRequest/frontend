@@ -157,6 +157,13 @@ export const Home: FC<NavIdProps> = (props) => {
 				>
 					Показать экран загрузки
 				</SimpleCell>
+
+				<SimpleCell
+					before={<Icon24Spinner width={28} />}
+					onClick={() => router.push(URL.testGPTPanel)}
+				>
+					Показать экран фильтров
+				</SimpleCell>
 			</Group>
 		</Panel>
 	)

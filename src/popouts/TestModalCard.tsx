@@ -1,7 +1,9 @@
 import {FC} from 'react'
 import React from 'react'
 
-import {Icon20ArticleOutline} from '@vkontakte/icons'
+import {Fragment} from 'react'
+
+import {Icon20ArticleOutline, Icon24Cancel, Icon24Done, Icon28Like} from '@vkontakte/icons'
 import {
 	Button,
 	Card,
@@ -13,10 +15,15 @@ import {
 	List,
 	MiniInfoCell,
 	ModalPage,
+	ModalPageHeader,
 	NavIdProps,
+	PanelHeaderButton,
+	Platform,
 	Separator,
 	Tabs,
 	TabsItem,
+	WriteBarIcon,
+	usePlatform,
 } from '@vkontakte/vkui'
 import {useModalStore} from '@/store'
 import {MeroCard} from '@/pages/MeroCard'
@@ -29,11 +36,15 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 	const setModal = useModalStore.use.setModal()
 	// const [mode, setMode] = React.useState('default')
 	const [selected, setSelected] = React.useState('paths')
-	// const [disabled, setDisabled] = React.useState(false)
+	const platform = usePlatform()
+
+	// const cardIconStyle: React.CSSProperties = {
+
+	// }
 
 	const fixedStyles: React.CSSProperties = {
 		position: 'fixed',
-		bottom: '0',
+		bottom: '3px',
 		left: '0',
 		right: '0',
 		zIndex: '10',
@@ -46,6 +57,31 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 			onClose={clearModal}
 			{...props}
 		>
+			{platform !== Platform.VKCOM && (
+				<ModalPageHeader
+					before={
+						<WriteBarIcon
+							aria-label="Добавить в избранное"
+							// style={cardIconStyle}
+							type="button"
+						>
+							<Icon28Like />
+						</WriteBarIcon>
+					}
+					after={
+						<Fragment>
+							{(platform === Platform.ANDROID || platform === Platform.VKCOM) && (
+								<PanelHeaderButton onClick={clearModal}>
+									<Icon24Done />
+								</PanelHeaderButton>
+							)}
+							{platform === Platform.IOS && <PanelHeaderButton onClick={clearModal}>Готово</PanelHeaderButton>}
+						</Fragment>
+					}
+				>
+					Залоговок
+				</ModalPageHeader>
+			)}
 			{/* <Group> */}
 			<Card>
 				<img
