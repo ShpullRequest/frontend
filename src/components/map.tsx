@@ -7,6 +7,7 @@ import { ENV } from '@/env';
 
 export const Map = ({children, ...props}: any) => {
   useEffect(() => {
+    console.log("Map-xyap")
     mmrgl.accessToken = ENV.VKMAPSAPIKEY;
  
     const map = new mmrgl.Map({
@@ -14,9 +15,9 @@ export const Map = ({children, ...props}: any) => {
       zoom: 8,
       center: [37.6165, 55.7505],
       style: 'mmr://api/styles/main_style.json',
-      hash: true,
+      hash: false,
     })
- 
+
     return () => {
       if (map) map.remove();
     }

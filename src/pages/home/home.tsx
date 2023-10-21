@@ -43,7 +43,7 @@ import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {Map} from '@/components/map'
 
-export const Home: FC<NavIdProps> = (props) => {
+export const  Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 
 	const user = useUserStore.use.user()

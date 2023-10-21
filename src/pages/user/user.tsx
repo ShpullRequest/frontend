@@ -28,7 +28,6 @@ import { classNamesString } from '@vkontakte/vkui/dist/lib/classNames'
 import { ErrorSnackbar, SuccessSnackbar } from '@/components'
 import { useModalStore, usePopoutStore, useSnackbarStore, useUserStore } from '@/store'
 
-import './home.css'
 import { TestActionSheet, TestAlert, TestModalCard } from '@/popouts'
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
 import { URL } from '@/router'
