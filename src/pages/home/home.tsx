@@ -10,23 +10,18 @@ import {
 	Icon28ErrorOutline,
 	Icon28GhostOutline,
 	Icon28PawOutline,
-	Icon28SlidersOutline,
 	Icon28WarningTriangleOutline,
 } from '@vkontakte/icons'
 import {send} from '@vkontakte/vk-bridge'
 import {
 	Avatar,
-	Card,
 	Gradient,
 	Group,
 	NavIdProps,
 	Panel,
 	PanelHeader,
-	PanelHeaderBack,
-	PanelHeaderContent,
 	Platform,
 	ScreenSpinner,
-	Search,
 	SimpleCell,
 	Text,
 	Title,
@@ -43,7 +38,7 @@ import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {Map} from '@/components/map'
 
-export const  Home: FC<NavIdProps> = (props) => {
+export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 
 	const user = useUserStore.use.user()
@@ -55,6 +50,10 @@ export const  Home: FC<NavIdProps> = (props) => {
 
 	const {setActionRefHandler} = useActionRef(() => setPopout(<TestActionSheet />))
 
+	useEffect(() => {
+		send('VKWebAppGetUserInfo').then((value) => setUser(value))
+		console.log(window.location.href)
+	}, [])
 	useEffect(() => {
 		send('VKWebAppGetUserInfo').then((value) => setUser(value))
 		console.log(window.location.href)
@@ -71,10 +70,17 @@ export const  Home: FC<NavIdProps> = (props) => {
 		<Panel {...props}>
 			<Map>
 				<div style={{position: 'absolute', zIndex: '1020123', width: '100%'}}>
-					<div style={{padding: '20px 30px 0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+					<div
+						style={{
+							padding: '20px 30px 0 20px',
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}
+					>
 						<SimpleSearch />
-						<div style={{display: 'flex', gap: "20px", alignItems: 'center'}}>
-							<Icon28SlidersOutline />
+						<div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+							<Icon28ErrorOutline />
 							<Avatar
 								src={user?.photo_100}
 								size={28}
@@ -115,7 +121,10 @@ export const  Home: FC<NavIdProps> = (props) => {
 			<Group>
 				<SimpleCell
 					before={<Icon28GhostOutline />}
-					onClick={() => setModal('TestModalCard')}
+					onClick={() => {
+						console.log('Добавляем в глобальный стейт')
+						setModal('TestModalCard')
+					}}
 				>
 					Показать модальную карточку
 				</SimpleCell>
@@ -135,28 +144,18 @@ export const  Home: FC<NavIdProps> = (props) => {
 				>
 					Показать предупреждение
 				</SimpleCell>
+				<SimpleCell
+					before={<Icon28WarningTriangleOutline />}
+					onClick={() => setPopout(<TestAlert />)}
+				>
+					Показать предупреждение
+				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon24Spinner width={28} />}
 					onClick={setLoadingScreenSpinner}
 				>
 					Показать экран загрузки
-				</SimpleCell>
-			</Group>
-
-			<Group>
-				<SimpleCell
-					before={<Icon28CheckCircleOutline />}
-					onClick={() => setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)}
-				>
-					Показать добрый снекбар
-				</SimpleCell>
-
-				<SimpleCell
-					before={<Icon28CancelCircleOutline />}
-					onClick={() => setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)}
-				>
-					Показать злой снекбар
 				</SimpleCell>
 			</Group>
 		</Panel>
