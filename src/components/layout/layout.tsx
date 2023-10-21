@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import {FC, useEffect} from 'react'
 
 import {
 	Epic,
@@ -24,28 +24,35 @@ import './layout.css'
 import {useModalStore, usePopoutStore, useSnackbarStore} from '@/store'
 import {useActiveVkuiLocation} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
-import { User } from "@pages/user";
+import {User} from '@pages/user'
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
 	const popout = usePopoutStore.use.popout()
 	const snackbar = useSnackbarStore.use.snackbar()
 	const modal = useModalStore.use.modal()
-
+	// const clearModal = useModalStore.use.clearModal()
 	/** Получаем текущую позицию */
 	const {panelsHistory, view: activeView, panel: activePanel} = useActiveVkuiLocation()
 	const {viewWidth} = useAdaptivityConditionalRender()
 	// Отрисовка всей навигации производится в роутере через передачу Id в  поля по типу activeModal
 	// Если я не хочу иметь какую-то конкретную ссылку на popout или modal. Я могу глобально передавать id в корневой компонент
 
-	useEffect(()=> {
+	useEffect(() => {
 		console.log(panelsHistory)
 	}, [panelsHistory])
+
+	useEffect(() => {
+		console.log(modal)
+	}, [modal])
 	return (
 		<SplitLayout
 			header={platform !== Platform.VKCOM && <PanelHeader separator={false} />}
 			modal={
-				<ModalRoot activeModal={modal}>
+				<ModalRoot
+					activeModal={modal}
+					// onClose={clearModal}
+				>
 					<TestModalCard id="TestModalCard" />
 				</ModalRoot>
 			}

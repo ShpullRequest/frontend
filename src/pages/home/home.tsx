@@ -1,7 +1,5 @@
 import {FC, useEffect} from 'react'
 import {useActionRef} from '@/hooks'
-import {FC, useEffect} from 'react'
-import {useActionRef} from '@/hooks'
 import {
 	Icon24Spinner,
 	Icon28ArticleOutline,
@@ -43,10 +41,6 @@ import {Map} from '@/components/map'
 export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 
-	const user = useUserStore.use.user()
-	const setUser = useUserStore.use.setUser()
-	const setSnackbar = useSnackbarStore.use.setSnackbar()
-	const clearPopout = usePopoutStore.use.clearPopout()
 	const user = useUserStore.use.user()
 	const setUser = useUserStore.use.setUser()
 	const setSnackbar = useSnackbarStore.use.setSnackbar()
