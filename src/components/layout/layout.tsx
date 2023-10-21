@@ -1,16 +1,16 @@
 import { FC, useEffect } from "react";
 
 import {
+	Epic,
+	ModalRoot,
 	PanelHeader,
 	Platform,
+	Root,
 	SplitCol,
 	SplitLayout,
-	usePlatform,
-	ModalRoot,
-	Epic,
 	View,
 	useAdaptivityConditionalRender,
-	Root,
+	usePlatform,
 } from '@vkontakte/vkui'
 
 import {Components, Home, Info, Persik} from '@/pages'

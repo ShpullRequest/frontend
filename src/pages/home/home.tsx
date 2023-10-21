@@ -34,7 +34,6 @@ import {
 	usePlatform,
 } from '@vkontakte/vkui'
 import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
-import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
 
 import {ErrorSnackbar, SimpleSearch, SuccessSnackbar} from '@/components'
 import {useModalStore, usePopoutStore, useSnackbarStore, useUserStore} from '@/store'
@@ -48,7 +47,10 @@ import {Map} from '@/components/map'
 export const  Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 
-	
+	const user = useUserStore.use.user()
+	const setUser = useUserStore.use.setUser()
+	const setSnackbar = useSnackbarStore.use.setSnackbar()
+	const clearPopout = usePopoutStore.use.clearPopout()
 	const user = useUserStore.use.user()
 	const setUser = useUserStore.use.setUser()
 	const setSnackbar = useSnackbarStore.use.setSnackbar()
@@ -78,10 +80,17 @@ export const  Home: FC<NavIdProps> = (props) => {
 		<Panel {...props}>
 			<Map>
 				<div style={{position: 'absolute', zIndex: '1020123', width: '100%'}}>
-					<div style={{padding: '20px 30px 0 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+					<div
+						style={{
+							padding: '20px 30px 0 20px',
+							display: 'flex',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}
+					>
 						<SimpleSearch />
-						<div style={{display: 'flex', gap: "20px", alignItems: 'center'}}>
-							<Icon28SlidersOutline />
+						<div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+							<Icon28ErrorOutline />
 							<Avatar
 								src={user?.photo_100}
 								size={28}
@@ -108,23 +117,7 @@ export const  Home: FC<NavIdProps> = (props) => {
 					>
 						Перейти к компонентам
 					</SimpleCell>
-					<SimpleCell
-						before={<Icon28CompassOutline />}
-						after={<Icon28ChevronRightOutline />}
-						onClick={() => router.push(URL.componentsPanel)}
-					>
-						Перейти к компонентам
-					</SimpleCell>
 
-					<SimpleCell
-						before={<Icon28ErrorOutline />}
-						after={<Icon28ChevronRightOutline />}
-						onClick={() => router.push(`/abobus`)}
-					>
-						Перейти к 404 странице
-					</SimpleCell>
-				</Group>
-			</Group>
 					<SimpleCell
 						before={<Icon28ErrorOutline />}
 						after={<Icon28ChevronRightOutline />}
@@ -138,18 +131,10 @@ export const  Home: FC<NavIdProps> = (props) => {
 			<Group>
 				<SimpleCell
 					before={<Icon28GhostOutline />}
-					onClick={() => setModal('TestModalCard')}
-				>
-					Показать модальную карточку
-				</SimpleCell>
-			</Group>
-			<Group>
-				<SimpleCell
-					before={<Icon28GhostOutline />}
-          onClick={() => {
-            console.log(Добавляем в глобальный стейт)
-            setModal('TestModalCard')
-          }}
+					onClick={() => {
+						console.log('Добавляем в глобальный стейт')
+						setModal('TestModalCard')
+					}}
 				>
 					Показать модальную карточку
 				</SimpleCell>
@@ -166,20 +151,6 @@ export const  Home: FC<NavIdProps> = (props) => {
 				</SimpleCell>
 			</Group>
 
-			<Group>
-				<SimpleCell
-					before={<Icon28ArticleOutline />}
-					onClick={setActionRefHandler}
-				>
-					Показать действия
-				</SimpleCell>
-			<Group>
-				<SimpleCell
-					before={<Icon28ArticleOutline />}
-					onClick={setActionRefHandler}
-				>
-					Показать действия
-				</SimpleCell>
 			<Group>
 				<SimpleCell
 					before={<Icon28ArticleOutline />}
@@ -194,28 +165,18 @@ export const  Home: FC<NavIdProps> = (props) => {
 				>
 					Показать предупреждение
 				</SimpleCell>
+				<SimpleCell
+					before={<Icon28WarningTriangleOutline />}
+					onClick={() => setPopout(<TestAlert />)}
+				>
+					Показать предупреждение
+				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon24Spinner width={28} />}
 					onClick={setLoadingScreenSpinner}
 				>
 					Показать экран загрузки
-				</SimpleCell>
-			</Group>
-
-			<Group>
-				<SimpleCell
-					before={<Icon28CheckCircleOutline />}
-					onClick={() => setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)}
-				>
-					Показать добрый снекбар
-				</SimpleCell>
-
-				<SimpleCell
-					before={<Icon28CancelCircleOutline />}
-					onClick={() => setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)}
-				>
-					Показать злой снекбар
 				</SimpleCell>
 			</Group>
 		</Panel>

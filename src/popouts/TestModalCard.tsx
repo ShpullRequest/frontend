@@ -21,9 +21,11 @@ import {
 import {useModalStore} from '@/store'
 import {MeroCard} from '@/pages/MeroCard'
 
+// TODO: после получения запросов и всякой шняги добавить логику подгрузки и шняги с самоопределением типа карточки и показывания доп. иконок и функций!!!
+
 export const TestModalCard: FC<NavIdProps> = (props) => {
 	const clearModal = useModalStore.use.clearModal()
-	const setModal = useModalStore.use.setModal()
+	const cardModalData = useModalStore.use.cardModalData()
 	// const [mode, setMode] = React.useState('default')
 	const [selected, setSelected] = React.useState('paths')
 	// const [disabled, setDisabled] = React.useState(false)

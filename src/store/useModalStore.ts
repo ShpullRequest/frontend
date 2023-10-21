@@ -6,7 +6,6 @@ interface ModalStore {
 	setModal: (modal: string | null) => void
 	cardModalData: any | null
 	setCardModalData: (data: any) => void
-
 	clearModal: () => void
 }
 
@@ -15,7 +14,7 @@ const ModalStoreBase = create<ModalStore>()((set) => ({
 	setModal: (modal) => set({modal}),
 	clearModal: () => set({modal: null}),
 	cardModalData: null,
-	setCardModalData: (data) => set({data}),
+	setCardModalData: (data) => set(data),
 }))
 
 export const useModalStore = createSelectors(ModalStoreBase)

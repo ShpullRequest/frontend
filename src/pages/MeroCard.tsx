@@ -18,8 +18,9 @@ export const MeroCard: FC<NavIdProps> = (props) => {
 	}
 
 	const setModal = useModalStore.use.setModal()
-	// const [currentCardInfo, setCurrentCardInfo]
+	const setCurrentCardInfo = useModalStore.use.setCardModalData()
 
+	// TODO: после запросов обязательно передавать в currentcardinfo все хуйни про карточку, приходящую с апишки
 	return (
 		<>
 			<ContentCard
@@ -31,7 +32,10 @@ export const MeroCard: FC<NavIdProps> = (props) => {
 				text="Тут оПисАНие"
 				caption="ТУТ АДРЕС"
 				maxHeight={500}
-				onClick={() => setModal('TestModalCard')}
+				onClick={() => {
+					setModal('TestModalCard')
+					setCurrentCardInfo('ss')
+				}}
 			/>
 			<WriteBarIcon
 				aria-label="Добавить в избранное"
