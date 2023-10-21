@@ -56,8 +56,6 @@ export const Layout: FC = () => {
 		>
 			<SplitCol autoSpaced>
 				<Root activeView={activeView || URL.homeView}>
-			<SplitCol autoSpaced>
-				<Root activeView={activeView || URL.homeView}>
 					<View
 						activePanel={activePanel || URL.homePanel}
 						nav={URL.homeView}
