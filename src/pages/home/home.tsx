@@ -15,7 +15,6 @@ import {
 	Icon28WarningTriangleOutline,
 } from '@vkontakte/icons'
 import {send} from '@vkontakte/vk-bridge'
-import {send} from '@vkontakte/vk-bridge'
 import {
 	Avatar,
 	Card,
@@ -35,6 +34,7 @@ import {
 	usePlatform,
 } from '@vkontakte/vkui'
 import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
+import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
 
 import {ErrorSnackbar, SimpleSearch, SuccessSnackbar} from '@/components'
 import {useModalStore, usePopoutStore, useSnackbarStore, useUserStore} from '@/store'
@@ -48,6 +48,7 @@ import {Map} from '@/components/map'
 export const  Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 
+	
 	const user = useUserStore.use.user()
 	const setUser = useUserStore.use.setUser()
 	const setSnackbar = useSnackbarStore.use.setSnackbar()
@@ -57,6 +58,10 @@ export const  Home: FC<NavIdProps> = (props) => {
 
 	const {setActionRefHandler} = useActionRef(() => setPopout(<TestActionSheet />))
 
+	useEffect(() => {
+		send('VKWebAppGetUserInfo').then((value) => setUser(value))
+		console.log(window.location.href)
+	}, [])
 	useEffect(() => {
 		send('VKWebAppGetUserInfo').then((value) => setUser(value))
 		console.log(window.location.href)
@@ -103,7 +108,23 @@ export const  Home: FC<NavIdProps> = (props) => {
 					>
 						Перейти к компонентам
 					</SimpleCell>
+					<SimpleCell
+						before={<Icon28CompassOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(URL.componentsPanel)}
+					>
+						Перейти к компонентам
+					</SimpleCell>
 
+					<SimpleCell
+						before={<Icon28ErrorOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(`/abobus`)}
+					>
+						Перейти к 404 странице
+					</SimpleCell>
+				</Group>
+			</Group>
 					<SimpleCell
 						before={<Icon28ErrorOutline />}
 						after={<Icon28ChevronRightOutline />}
@@ -118,6 +139,17 @@ export const  Home: FC<NavIdProps> = (props) => {
 				<SimpleCell
 					before={<Icon28GhostOutline />}
 					onClick={() => setModal('TestModalCard')}
+				>
+					Показать модальную карточку
+				</SimpleCell>
+			</Group>
+			<Group>
+				<SimpleCell
+					before={<Icon28GhostOutline />}
+          onClick={() => {
+            console.log(Добавляем в глобальный стейт)
+            setModal('TestModalCard')
+          }}
 				>
 					Показать модальную карточку
 				</SimpleCell>
@@ -148,6 +180,13 @@ export const  Home: FC<NavIdProps> = (props) => {
 				>
 					Показать действия
 				</SimpleCell>
+			<Group>
+				<SimpleCell
+					before={<Icon28ArticleOutline />}
+					onClick={setActionRefHandler}
+				>
+					Показать действия
+				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon28WarningTriangleOutline />}
@@ -155,20 +194,7 @@ export const  Home: FC<NavIdProps> = (props) => {
 				>
 					Показать предупреждение
 				</SimpleCell>
-				<SimpleCell
-					before={<Icon28WarningTriangleOutline />}
-					onClick={() => setPopout(<TestAlert />)}
-				>
-					Показать предупреждение
-				</SimpleCell>
 
-				<SimpleCell
-					before={<Icon24Spinner width={28} />}
-					onClick={setLoadingScreenSpinner}
-				>
-					Показать экран загрузки
-				</SimpleCell>
-			</Group>
 				<SimpleCell
 					before={<Icon24Spinner width={28} />}
 					onClick={setLoadingScreenSpinner}
@@ -184,23 +210,7 @@ export const  Home: FC<NavIdProps> = (props) => {
 				>
 					Показать добрый снекбар
 				</SimpleCell>
-			<Group>
-				<SimpleCell
-					before={<Icon28CheckCircleOutline />}
-					onClick={() => setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)}
-				>
-					Показать добрый снекбар
-				</SimpleCell>
 
-				<SimpleCell
-					before={<Icon28CancelCircleOutline />}
-					onClick={() => setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)}
-				>
-					Показать злой снекбар
-				</SimpleCell>
-			</Group>
-		</Panel>
-	)
 				<SimpleCell
 					before={<Icon28CancelCircleOutline />}
 					onClick={() => setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)}
