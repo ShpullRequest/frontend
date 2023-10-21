@@ -1,7 +1,7 @@
 {
-  "name": "polivalich",
+  "name": "tourism_app",
   "version": "1.0.0",
-  "description": "Приложения для управления Поливалычем",
+  "description": "VkMiniApp",
   "scripts": {
     "build": "tsc && vite build",
     "deploy": "vk-miniapps-deploy",
@@ -9,7 +9,7 @@
     "lint": "eslint --fix ./src/",
     "format": "prettier --write ./src/",
     "serve": "vite preview",
-    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=10888 app_id=51775188 endpoints=[web]"
+    "tunnel": "vk-tunnel --insecure=1 --http-protocol=https --ws-protocol=wss --host=0.0.0.0 --port=10888 app_id=[app_id] endpoints=[web]"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.35.7",
@@ -21,6 +21,7 @@
     "@vkontakte/vkui": "^5.0.1",
     "axios": "^1.5.1",
     "dotenv": "^16.3.1",
+    "mmr-gl": "^0.1.372",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zod": "^3.22.3",
