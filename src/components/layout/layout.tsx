@@ -10,6 +10,7 @@ import {
 	Epic,
 	View,
 	useAdaptivityConditionalRender,
+	Root,
 } from '@vkontakte/vkui'
 
 import {Components, Home, Info, Persik} from '@/pages'
@@ -47,45 +48,19 @@ export const Layout: FC = () => {
 			aria-live="polite"
 			aria-busy={!!popout}
 		>
-			<SplitCol
-				autoSpaced
-				width={650}
-				maxWidth={650}
-			>
-				<Epic
-					activeStory={activeView || URL.homeView}
-					tabbar={
-						platform !== Platform.VKCOM && (
-							<LayoutTabbar>
-								<LayoutNav mode="tabbarItem" />
-							</LayoutTabbar>
-						)
-					}
-				>
+			<SplitCol autoSpaced>
+				<Root activeView={activeView || URL.homeView}>
 					<View
 						activePanel={activePanel || URL.homePanel}
 						nav={URL.homeView}
 						history={panelsHistory}
 					>
 						<Home nav={URL.homePanel} />
-						<Persik nav={URL.persikPanel} />
-						<Components nav={URL.componentsPanel} />
 					</View>
+				</Root>
 
-					<View
-						nav={URL.infoView}
-						activePanel={activePanel || URL.infoPanel}
-					>
-						<Info nav={URL.infoPanel} />
-					</View>
-				</Epic>
 				{snackbar}
 			</SplitCol>
-			{platform === Platform.VKCOM && (
-				<LayoutSidebar>
-					<LayoutNav mode="cell" />
-				</LayoutSidebar>
-			)}
 		</SplitLayout>
 	)
 }

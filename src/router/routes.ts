@@ -9,23 +9,31 @@ import {
 // Будем обращаться к маршрутам через переменные, чтобы избежать мисспелов
 export enum URL {
     homeView = "home",
-    infoView = "info",
-    persikPanel = "/persik",
+    perosnalProfileView = "perosnalProfile",
+    organizationProfileView = "organizationProfile",
+
     homePanel = "/",
+    personalPanel = "/",
+    organizationPanel = "/",
+
+    persikPanel = "/persik",
+
     componentsPanel = "/components",
     infoPanel = "/info",
 }
 
 export const routes = RoutesConfig.create([
     createRoot("root", [
-      createView(URL.homeView, [
-        createPanel(URL.homePanel, URL.homePanel, []),
-        createPanel(URL.persikPanel, URL.persikPanel, []),
-        createPanel(URL.componentsPanel, URL.componentsPanel, []),
+      createView(URL.homeView, [ 
+        createPanel(URL.homePanel, URL.homePanel, []),  // Тут основной интерфейс, в который приходит то, что мы отображаем в конкретный момент. Тут будут все кнопочки, блоки и логика
+        
       ]),
-      createView(URL.infoView, [
-        createPanel(URL.infoPanel, URL.infoPanel, []),
-      ])
+      createView(URL.perosnalProfileView, [ 
+        createPanel(URL.organizationProfileView, URL.personalPanel, []), // Тут страница пользователя
+      ]),
+      createView(URL.homeView, [
+        createPanel(URL.organizationPanel, URL.organizationPanel, []), // Тут страница организатора
+      ]),
     ]),
   ])
 
