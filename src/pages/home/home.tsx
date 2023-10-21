@@ -1,7 +1,5 @@
 import {FC, useEffect} from 'react'
 import {useActionRef} from '@/hooks'
-import {FC, useEffect} from 'react'
-import {useActionRef} from '@/hooks'
 import {
 	Icon24Spinner,
 	Icon28ArticleOutline,
@@ -15,25 +13,21 @@ import {
 	Icon28WarningTriangleOutline,
 } from '@vkontakte/icons'
 import {send} from '@vkontakte/vk-bridge'
-import {send} from '@vkontakte/vk-bridge'
 import {
 	Avatar,
-	Card,
 	Gradient,
 	Group,
 	NavIdProps,
 	Panel,
 	PanelHeader,
-	PanelHeaderBack,
-	PanelHeaderContent,
 	Platform,
 	ScreenSpinner,
-	Search,
 	SimpleCell,
 	Text,
 	Title,
 	usePlatform,
 } from '@vkontakte/vkui'
+import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
 import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
 
 import {ErrorSnackbar, SimpleSearch, SuccessSnackbar} from '@/components'
@@ -47,7 +41,12 @@ import {Map} from '@/components/map'
 
 export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
+	const platform = usePlatform()
 
+	const user = useUserStore.use.user()
+	const setUser = useUserStore.use.setUser()
+	const setSnackbar = useSnackbarStore.use.setSnackbar()
+	const clearPopout = usePopoutStore.use.clearPopout()
 	const user = useUserStore.use.user()
 	const setUser = useUserStore.use.setUser()
 	const setSnackbar = useSnackbarStore.use.setSnackbar()
@@ -56,7 +55,12 @@ export const Home: FC<NavIdProps> = (props) => {
 	const setModal = useModalStore.use.setModal()
 
 	const {setActionRefHandler} = useActionRef(() => setPopout(<TestActionSheet />))
+	const {setActionRefHandler} = useActionRef(() => setPopout(<TestActionSheet />))
 
+	useEffect(() => {
+		send('VKWebAppGetUserInfo').then((value) => setUser(value))
+		console.log(window.location.href)
+	}, [])
 	useEffect(() => {
 		send('VKWebAppGetUserInfo').then((value) => setUser(value))
 		console.log(window.location.href)
@@ -66,7 +70,12 @@ export const Home: FC<NavIdProps> = (props) => {
 		setPopout(<ScreenSpinner state="loading" />)
 		setTimeout(clearPopout, 2000)
 	}
+	const setLoadingScreenSpinner = () => {
+		setPopout(<ScreenSpinner state="loading" />)
+		setTimeout(clearPopout, 2000)
+	}
 
+	const router = useRouteNavigator()
 	const router = useRouteNavigator()
 
 	return (
@@ -103,7 +112,23 @@ export const Home: FC<NavIdProps> = (props) => {
 					>
 						Перейти к компонентам
 					</SimpleCell>
+					<SimpleCell
+						before={<Icon28CompassOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(URL.componentsPanel)}
+					>
+						Перейти к компонентам
+					</SimpleCell>
 
+					<SimpleCell
+						before={<Icon28ErrorOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(`/abobus`)}
+					>
+						Перейти к 404 странице
+					</SimpleCell>
+				</Group>
+			</Group>
 					<SimpleCell
 						before={<Icon28ErrorOutline />}
 						after={<Icon28ChevronRightOutline />}
