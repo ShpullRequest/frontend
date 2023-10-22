@@ -35,7 +35,6 @@ export const routes = RoutesConfig.create([
         createPanel(URL.prizmaPanel, URL.prizmaPanel, []),
         createPanel(URL.routePanel, URL.routePanel, []),
         createPanel(URL.favoritesPanel, URL.favoritesPanel, []),
-        createPanel(URL.filtersPanel, URL.filtersPanel, []),
         createPanel(URL.historyPanel, URL.historyPanel, []),
         createPanel(URL.locationPanel, URL.locationPanel, []),
       ]),
