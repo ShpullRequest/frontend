@@ -3,3 +3,8 @@ export * from './layout'
 
 export * from './placeholder'
 export * from './snackbar'
+export * from './search'
+export * from './route'
+export * from './history'
+export * from './search'
+export * from './locationPicker'

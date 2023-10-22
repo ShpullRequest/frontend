@@ -1,16 +1,20 @@
-import { create } from 'zustand'
-import { createSelectors } from './createSelectors'
+import {create} from 'zustand'
+import {createSelectors} from './createSelectors'
 
 interface ModalStore {
-    modal: string | null,
-    setModal: (modal: string | null) => void,
-    clearModal: () => void
+	modal: string | undefined
+	setModal: (modal: string | undefined) => void
+	cardModalData: any | null
+	setCardModalData: (data: any) => void
+	clearModal: () => void
 }
 
-  const ModalStoreBase = create<ModalStore>()((set) => ({
-    modal: null,
-    setModal: (modal) => set({ modal }),
-    clearModal: () => set({modal: null})
-  }))
+const ModalStoreBase = create<ModalStore>()((set) => ({
+	modal: undefined,
+	setModal: (modal) => set({modal}),
+	clearModal: () => set({modal: undefined}),
+	cardModalData: null,
+	setCardModalData: (data) => set({cardModalData: data}),
+}))
 
- export const useModalStore = createSelectors(ModalStoreBase)
+export const useModalStore = createSelectors(ModalStoreBase)

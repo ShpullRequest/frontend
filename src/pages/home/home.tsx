@@ -1,168 +1,96 @@
-import { FC, useEffect } from 'react'
-import { useActionRef } from '@/hooks'
-import {
-  Icon24Spinner,
-  Icon28ArticleOutline,
-  Icon28CancelCircleOutline,
-  Icon28CheckCircleOutline,
-  Icon28ChevronRightOutline,
-  Icon28CompassOutline,
-  Icon28ErrorOutline,
-  Icon28GhostOutline,
-  Icon28PawOutline,
-  Icon28WarningTriangleOutline
-} from '@vkontakte/icons'
-import { send } from '@vkontakte/vk-bridge'
-import {
-  Avatar,
-  Gradient,
-  Group,
-  NavIdProps,
-  Panel,
-  PanelHeader,
-  Platform,
-  ScreenSpinner,
-  SimpleCell,
-  Text,
-  Title,
-  usePlatform
-} from '@vkontakte/vkui'
-import { classNamesString } from '@vkontakte/vkui/dist/lib/classNames'
-
-import { ErrorSnackbar, SuccessSnackbar } from '@/components'
-import { useModalStore, usePopoutStore, useSnackbarStore, useUserStore } from '@/store'
-
+import React from 'react'
+import {FC} from 'react'
 import './home.css'
-import { TestActionSheet, TestAlert, TestModalCard } from '@/popouts'
-import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router'
-import { URL } from '@/router'
+import {
+	Card,
+	CardGrid,
+	CardScroll,
+	Div,
+	Group,
+	Headline,
+	HorizontalCell,
+	HorizontalScroll,
+	NavIdProps,
+	Panel,
+	PanelHeader,
+	PanelHeaderBack,
+	PanelHeaderButton,
+	Platform,
+	SimpleCell,
+	Spacing,
+	usePlatform,
+} from '@vkontakte/vkui'
+import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
+import {URL} from '@/router'
+import {Map} from '@/components/map'
+import {Icon28ChevronRightOutline, Icon28CompassOutline, Icon28ErrorOutline, Icon28PawOutline} from '@vkontakte/icons'
+import {Content} from '@/components/content'
+import {useQuery, useQueryClient} from '@tanstack/react-query'
+import {ApiService} from '@/services'
+import {BannerMain} from '@/components/BannerMain'
+import {Components} from '../components'
+import { Banners } from '@/const'
+
 
 export const Home: FC<NavIdProps> = (props) => {
-  const platform = usePlatform()
+	const platform = usePlatform()
+	const router = useRouteNavigator()
+	return (
+		// Меняем панельку в соответствии с нуждами
+		// Панелька как минимум плохо работает с IOS. Для Главное не нужна кнопка назад
+		// Она НУЖНА там, где будет кнопка назад
+		// В before добавляем кнопку назад. Через роутер добавляем ссылку назад
 
-  const user = useUserStore.use.user()
-  const setUser = useUserStore.use.setUser()
-  const setSnackbar = useSnackbarStore.use.setSnackbar()
-  const clearPopout = usePopoutStore.use.clearPopout()
-	const setPopout = usePopoutStore.use.setPopout()
-	const setModal = useModalStore.use.setModal()
+		// В Contet запихиваем контент, который будет в нижней части
+		<Panel {...props}>
+			{platform !== Platform.VKCOM && <PanelHeader>Prisma</PanelHeader>}
+			{/* {platform !== Platform.VKCOM && (
+				<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Название страницы</PanelHeader>
+			)} */}
+			<Map isPanelNav />
+			<Spacing size={8}></Spacing>
+			<Content>
+				<Div>
+					<Headline
+						level="1"
+						weight="2"
+					>
+						Открывайте новое
+					</Headline>
+				</Div>
 
-  const { setActionRefHandler } = useActionRef(() =>
-    setPopout(<TestActionSheet/>)
-  )
+				<HorizontalScroll
+					showArrows
+					getScrollToLeft={(i) => i - 120}
+					getScrollToRight={(i) => i + 120}
+				>
+					{Banners.map((banner, key) => {
+						return (
+							<>
+								<HorizontalCell size="l">
+									<BannerMain
+										key={key}
+										//@ts-ignore
+										header={banner.title}
+										subheader={banner.subtitle}
+										url={banner.url}
+									/>
+								</HorizontalCell>
+							</>
+						)
+					})}
+				</HorizontalScroll>
 
-  useEffect(() => {
-    send('VKWebAppGetUserInfo').then((value) => setUser(value))
-    console.log(window.location.href)
-  }, [])
-
-
-  const setLoadingScreenSpinner = () => {
-    setPopout(<ScreenSpinner state="loading" />);
-    setTimeout(clearPopout, 2000);
-  };
-
-  const router = useRouteNavigator()
-
-  return (
-    <Panel {...props}>
-      <PanelHeader>Главная</PanelHeader>
-
-      <Group>
-        <Gradient
-          className={classNamesString(
-            'Gradient',
-            platform === Platform.VKCOM && 'Gradient__desktop'
-          )}
-        >
-          <Avatar src={user?.photo_100} size={96} />
-          <Title className="Gradient_Title" level="2" weight="2">
-            {!user && 'Загрузка...'}
-            {user?.first_name} {user?.last_name}
-          </Title>
-          <Text weight="3" className="Gradient_Subtitle">
-            Пользователь
-          </Text>
-        </Gradient>
-
-        <Group mode="plain">
-          <SimpleCell
-            before={<Icon28PawOutline />}
-            after={<Icon28ChevronRightOutline />}
-            onClick={() => router.push(URL.persikPanel)}
-          >
-            Перейти к Персику
-          </SimpleCell>
-
-          <SimpleCell
-            before={<Icon28CompassOutline />}
-            after={<Icon28ChevronRightOutline />}
-            onClick={() => router.push(URL.componentsPanel)}
-          >
-            Перейти к компонентам
-          </SimpleCell>
-
-          <SimpleCell
-            before={<Icon28ErrorOutline />}
-            after={<Icon28ChevronRightOutline />}
-            onClick={() => router.push(`/abobus`)}
-          >
-            Перейти к 404 странице
-          </SimpleCell>
-        </Group>
-      </Group>
-
-      <Group>
-        <SimpleCell
-          before={<Icon28GhostOutline />}
-          onClick={() => setModal("TestModalCard")}
-        >
-          Показать модальную карточку
-        </SimpleCell> 
-      </Group>
-
-      <Group>
-        <SimpleCell
-          before={<Icon28ArticleOutline />}
-          onClick={setActionRefHandler}
-        >
-          Показать действия
-        </SimpleCell>
-
-        <SimpleCell
-          before={<Icon28WarningTriangleOutline />}
-          onClick={() => setPopout(<TestAlert/>)}
-        >
-          Показать предупреждение
-        </SimpleCell>
-
-        <SimpleCell
-          before={<Icon24Spinner width={28} />}
-          onClick={setLoadingScreenSpinner}
-        >
-          Показать экран загрузки
-        </SimpleCell>
-      </Group>
-
-      <Group>
-        <SimpleCell
-          before={<Icon28CheckCircleOutline />}
-          onClick={() =>
-            setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)
-          }
-        >
-          Показать добрый снекбар
-        </SimpleCell>
-
-        <SimpleCell
-          before={<Icon28CancelCircleOutline />}
-          onClick={() =>
-            setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)
-          }
-        >
-          Показать злой снекбар
-        </SimpleCell>
-      </Group>
-    </Panel>
-  )
+				<Div>
+					<Headline
+						level="1"
+						weight="2"
+					>
+						Рекомендуем посетить
+					</Headline>
+				</Div>
+				<Components />
+			</Content>
+		</Panel>
+	)
 }
