@@ -1,24 +1,23 @@
-import { FC } from 'react'
+import {FC} from 'react'
 
-import { useActionRef } from '@/hooks'
-import { ActionSheet, ActionSheetItem, NavIdProps, ScreenSpinner } from '@vkontakte/vkui'
-import { usePopoutStore, useSnackbarStore } from '@/store'
-import { TestPayload, testValidation } from '@/models'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { ApiService } from '@/services'
-import { ErrorSnackbar, SuccessSnackbar } from '@/components'
+import {useActionRef} from '@/hooks'
+import {ActionSheet, ActionSheetItem, NavIdProps, ScreenSpinner} from '@vkontakte/vkui'
+import {usePopoutStore, useSnackbarStore} from '@/store'
+import {TestPayload, testValidation} from '@/models'
+import {useMutation, useQueryClient} from '@tanstack/react-query'
+import {ApiService} from '@/services'
+import {ErrorSnackbar, SuccessSnackbar} from '@/components'
 
 export const TestActionSheet: FC<NavIdProps> = () => {
-  const { actionRef } = useActionRef()
-  const clearPopout = usePopoutStore.use.clearPopout()
-  const setPopout = usePopoutStore.use.setPopout()
-  const setSnackbar = useSnackbarStore.use.setSnackbar()
+	const {actionRef} = useActionRef()
+	const clearPopout = usePopoutStore.use.clearPopout()
+	const setPopout = usePopoutStore.use.setPopout()
+	const setSnackbar = useSnackbarStore.use.setSnackbar()
 
-
-  // Функция чтобы увидеть спиннер
-  function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+	// Функция чтобы увидеть спиннер
+	function sleep(ms: number) {
+		return new Promise((resolve) => setTimeout(resolve, ms))
+	}
 
 	const queryClient = useQueryClient()
 	const {isLoading, isError, data, mutate} = useMutation({
@@ -29,11 +28,11 @@ export const TestActionSheet: FC<NavIdProps> = () => {
 		},
 		onSuccess: (data) => {
 			console.log(data)
-      setSnackbar(<SuccessSnackbar>Произошёл успех</SuccessSnackbar>)
+			setSnackbar(<SuccessSnackbar>Вы успешно отметились на мероприятии!</SuccessSnackbar>)
 		},
 		onError: (error) => {
 			console.error('there was an error', error)
-      setSnackbar(<ErrorSnackbar>Произошла ошибка</ErrorSnackbar>)
+			setSnackbar(<ErrorSnackbar>Что-то пошло не так...</ErrorSnackbar>)
 		},
 		onSettled: () => {
 			setPopout(null)
@@ -46,28 +45,42 @@ export const TestActionSheet: FC<NavIdProps> = () => {
 	// data для отображения результата
 	const testRequest = (payload: TestPayload) => {
 		if (!testValidation.safeParse(payload).success) {
-      return setSnackbar(<ErrorSnackbar>Произошла ошибка при валидации</ErrorSnackbar>)
+			return setSnackbar(<SuccessSnackbar>Супер!</SuccessSnackbar>)
 		}
 		mutate(payload)
 	}
 
-  return (
-    <ActionSheet
-      onClose={clearPopout}
-      iosCloseItem={
-        <ActionSheetItem autoClose mode="cancel">
-          Отменить
-        </ActionSheetItem>
-      }
-      toggleRef={actionRef}
-    >
-      <ActionSheetItem autoClose 
-      onClick={() => testRequest({email: 'rikk@gmail.com'})}>Отправить запрос к API</ActionSheetItem>
-      <ActionSheetItem autoClose
-      onClick={() => testRequest({email: 'rikkgmailcom'})}>Отправить невалидные данные к API</ActionSheetItem>
-      <ActionSheetItem autoClose mode="destructive">
-        Опасное действие
-      </ActionSheetItem>
-    </ActionSheet>
-  )
+	return (
+		<ActionSheet
+			onClose={clearPopout}
+			iosCloseItem={
+				<ActionSheetItem
+					autoClose
+					mode="cancel"
+				>
+					Отменить
+				</ActionSheetItem>
+			}
+			toggleRef={actionRef}
+		>
+			<ActionSheetItem
+				autoClose
+				onClick={() => testRequest({email: 'rikk@gmail.com'})}
+			>
+				Отправить запрос к API
+			</ActionSheetItem>
+			<ActionSheetItem
+				autoClose
+				onClick={() => testRequest({email: 'rikkgmailcom'})}
+			>
+				Отправить невалидные данные к API
+			</ActionSheetItem>
+			<ActionSheetItem
+				autoClose
+				mode="destructive"
+			>
+				Опасное действие
+			</ActionSheetItem>
+		</ActionSheet>
+	)
 }

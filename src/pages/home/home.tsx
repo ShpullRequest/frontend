@@ -19,10 +19,9 @@ import {
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {Map} from '@/components/map'
-import {Icon28PawOutline, Icon28ChevronRightOutline, Icon28CompassOutline, Icon28ErrorOutline} from '@vkontakte/icons'
+import {Icon28ChevronRightOutline, Icon28CompassOutline, Icon28ErrorOutline, Icon28PawOutline} from '@vkontakte/icons'
 import {Content} from '@/components/content'
 
-export const Home: FC<NavIdProps> = (props) => {
 export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 	const router = useRouteNavigator()
