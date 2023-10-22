@@ -21,7 +21,12 @@ import {useActiveVkuiLocation} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {User} from '@pages/user'
 
-import {LocationPicker} from '@/components'
+import {useQuery, useQueryClient} from '@tanstack/react-query'
+import {ApiService} from '@/services'
+import {History, LocationPicker} from '@/components'
+import { Favorites } from '../favorites'
+import { Filters } from '../filters'
+import { Route } from '../route'
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
@@ -63,15 +68,11 @@ export const Layout: FC = () => {
 						<Home nav={URL.homePanel} />
 						<Components nav={URL.componentsPanel} />
 						<LocationPicker nav={URL.locationPanel} />
-					</View>
-
-					<View
-						activePanel={activePanel || URL.personalPanel}
-						nav={URL.personalProfileView}
-						history={panelsHistory}
-					>
 						<User nav={URL.personalPanel} />
-						{/* <LocationPicker nav={URL.locationPanel}/> */}
+						<Favorites nav={URL.favoritesPanel} />
+						<History nav={URL.historyPanel} />
+						<Filters nav={URL.filtersPanel} />
+						<Route nav={URL.routePanel} />
 					</View>
 				</Root>
 

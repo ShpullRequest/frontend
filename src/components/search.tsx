@@ -20,34 +20,50 @@ export const SimpleSearch = ({mobile}: any) => {
 	const data: mockSearchData[] = [
 		{
 			id: 1,
-			name: 'Севкабель',
+			name: 'ВДНХ',
 			coords: '12.123443,15.123125',
 		},
 		{
 			id: 2,
-			name: 'Аннеса',
+			name: 'Красная Площадь',
 			coords: '12.123443,15.123125',
 		},
 		{
 			id: 3,
-			name: 'Аннекирхе',
+			name: 'Музей современного искусства МАРС',
 			coords: '12.123443,15.123125',
 		},
 		{
 			id: 4,
-			name: 'Севчик',
+			name: 'Московский зоопарк',
 			coords: '12.123443,15.123125',
 		},
 		{
 			id: 5,
-			name: 'Авангард',
+			name: 'Москвариум',
 			coords: '12.123443,15.123125',
 		},
 		{
 			id: 6,
-			name: 'Сева',
+			name: 'Александровский сад',
 			coords: '12.123443,15.123125',
 		},
+		{
+			id: 7,
+			name: 'Эрмитаж',
+			coords: '12.123443,15.123125',
+		},
+		{
+			id: 8,
+			name: 'Парк искусств Музеон',
+			coords: '12.123443,15.123125',
+		},
+		{
+			id: 9,
+			name: 'Московский планетарий',
+			coords: '12.123443,15.123125',
+		},
+
 	]
 
 	const fakeData = () => data.filter((place) => place.name.toLowerCase().indexOf(visibleQ.toLowerCase()) > -1)
@@ -58,7 +74,6 @@ export const SimpleSearch = ({mobile}: any) => {
 			if (visibleQ) {
 				setQ(visibleQ)
 				setSearchRes(fakeData())
-				console.log(visibleQ)
 			} else {
 				setSearchRes([])
 			}

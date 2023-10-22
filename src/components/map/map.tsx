@@ -10,7 +10,7 @@ import {useUserStore} from '@/store'
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {ContentPanel} from '@/components/content'
-import {parseCoordinates} from '@/helpers'
+import { parseCoordinates } from '@/helpers'
 
 interface Map extends React.HTMLAttributes<HTMLDivElement> {
 	isPanelNav?: boolean
@@ -47,6 +47,28 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 					coordinates: [37.6165, 55.8505],
 				},
 			},
+			{
+				type: 'Feature',
+				geometry: {
+					type: 'Point',
+					coordinates: [37.3165, 55.8535],
+				},
+			},
+			{
+				type: 'Feature',
+				geometry: {
+					type: 'Point',
+					coordinates: [37.6865, 55.6505],
+				},
+			},
+
+			{
+				type: 'Feature',
+				geometry: {
+					type: 'Point',
+					coordinates: [37.6165, 55.8245],
+				},
+			},
 		],
 	}
 
@@ -58,7 +80,7 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 
 		const map = new mmrgl.Map({
 			container: 'map',
-			zoom: 8,
+			zoom: 11,
 			center: selectedGeo ? parseCoordinates(selectedGeo) : [37.4165, 55.7505],
 			style: 'mmr://api/styles/main_style.json',
 			hash: false,
@@ -97,7 +119,7 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 			<div className="mapNavWrapper">
 				<div className="mapNav--mob">{isPanelNav && <SimpleSearch mobile={true} />}</div>
 			</div>
-			{/* <Avatar
+			<Avatar
 				className="mapNavButton"
 				style={{cursor: 'pointer'}}
 				size={40}
@@ -105,7 +127,7 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 				src="#"
 				gradientColor={5}
 				withBorder={false}
-			/> */}
+			/>
 		</div>
 	) : (
 		<div
@@ -146,14 +168,14 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 					</Group>
 				</div>
 			</div>
-			{/* <Avatar
+			<Avatar
 				className="mapNavButton"
 				style={{cursor: 'pointer'}}
 				size={40}
 				fallbackIcon={<Icon28LocationOutline />}
 				src="#"
 				gradientColor="blue"
-			/> */}
+			/>
 		</div>
 	)
 }

@@ -22,8 +22,8 @@ export const TestAlert: FC<NavIdProps> = () => {
 			]}
 			actionsLayout="horizontal"
 			onClose={clearPopout}
-			header="Подтверждение действия"
-			text="Вы уверены, что вам стоило открывать это предупреждение?"
+			header="А тут ничего нет"
+			text="Но очень скоро появится!"
 		/>
 	)
 }
