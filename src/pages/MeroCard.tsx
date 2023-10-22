@@ -2,10 +2,20 @@ import {FC} from 'react'
 import React from 'react'
 import {useModalStore} from '@/store'
 import {Icon28Like} from '@vkontakte/icons'
-import {ContentCard, NavIdProps, Platform, WriteBarIcon, usePlatform} from '@vkontakte/vkui'
+import {ContentCard, GroupProps, NavIdProps, Platform, WriteBarIcon, usePlatform} from '@vkontakte/vkui'
 import './MeroCard.css'
 
-export const MeroCard: FC<NavIdProps> = (props) => {
+interface ContentsForCard extends GroupProps {
+	title: string
+	subtitle: string
+	header: string
+	text: string
+	caption: string
+	url: string
+	type: string
+}
+
+export const MeroCard: FC<NavIdProps> = ({title, subtitle, header, text, caption, url, type}: ContentsForCard) => {
 	const cardStyle: React.CSSProperties = {
 		position: 'relative',
 	}
@@ -20,22 +30,30 @@ export const MeroCard: FC<NavIdProps> = (props) => {
 	}
 
 	const setModal = useModalStore.use.setModal()
-	// const setCurrentCardInfo = useModalStore.use.setCardModalData()
+	const setCurrentCardInfo = useModalStore.use.setCardModalData()
 
 	// TODO: после запросов обязательно передавать в currentcardinfo все хуйни про карточку, приходящую с апишки
 	return (
 		<>
 			<ContentCard
 				style={cardStyle}
-				src="https://images.unsplash.com/photo-1573152958734-1922c188fba3?auto=format&fit=crop&q=80&w=1932&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+				src={url}
 				alt="Picture of person's left hand with pink paint"
-				subtitle="тут рейтинг"
-				header="Тут название"
-				text="Тут оПисАНие"
-				caption="ТУТ АДРЕС"
+				subtitle={subtitle}
+				header={header}
+				text={text}
+				caption={caption}
 				maxHeight={500}
 				onClick={() => {
-					// setCurrentCardInfo('ss')
+					setCurrentCardInfo({
+						src: url,
+						subtitle: subtitle,
+						header: header,
+						text: text,
+						caption: caption,
+						type: type,
+						title: title,
+					})
 					setModal('TestModalCard')
 				}}
 			/>

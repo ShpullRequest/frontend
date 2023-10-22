@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect} from 'react'
 import React from 'react'
 
 import {Fragment} from 'react'
@@ -45,13 +45,17 @@ import {ContentsForModalCard} from '@/components/ContentsForModalCard'
 // TODO: после получения запросов и всякой шняги добавить логику подгрузки и шняги с самоопределением типа карточки и показывания доп. иконок и функций!!!
 //Починить кнопку для спец действия (фиксированную)
 export const TestModalCard: FC<NavIdProps> = (props) => {
+	const cardModalData = useModalStore.use.cardModalData()
 	const clearModal = useModalStore.use.clearModal()
-	// const cardModalData = useModalStore.use.cardModalData()
 	const setModal = useModalStore.use.setModal()
 	// const [mode, setMode] = React.useState('default')
 	const [selected, setSelected] = React.useState('paths')
 	const platform = usePlatform()
 	const setSnackbar = useSnackbarStore.use.setSnackbar()
+
+	useEffect(() => {
+		console.log(cardModalData)
+	}, [])
 
 	const PlateForMero = () => {
 		return (
@@ -198,8 +202,6 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 		zIndex: '10',
 	}
 
-	// const data = useModalStore.use.cardModalData()
-
 	return (
 		<ModalPage
 			onClose={clearModal}
@@ -210,7 +212,6 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 					before={
 						<WriteBarIcon
 							aria-label="Добавить в избранное"
-							// style={cardIconStyle}
 							type="button"
 						>
 							<Icon28Like />
@@ -239,16 +240,15 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 				/>
 			</Card>
 
-			{/* <PlateForMero /> */}
-			{/* <PlateForOrganization /> */}
-			{/* ToDO: Закинуть только для мероприятий */}
+			{cardModalData.type === 'mero' && <PlateForMero />}
+			{cardModalData.type == 'org' && <PlateForOrganization />}
 
 			{/* <Separator /> */}
 
 			<ContentCard
 				header={
 					<MiniInfoCell
-						before="Название"
+						before={cardModalData?.header}
 						after={
 							<HorizontalCell>
 								<Paragraph>4.7</Paragraph>
@@ -257,8 +257,8 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 						}
 					></MiniInfoCell>
 				}
-				text="Тут оПисАНие"
-				caption="ТУТ АДРЕС"
+				text={cardModalData?.text}
+				caption={cardModalData?.subtitle}
 				maxHeight={500}
 			/>
 
@@ -266,40 +266,76 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 				before={<Icon20ArticleOutline />}
 				textWrap="full"
 			>
-				Самый большой цирк во всем Санкт-Петербурге. Много интересных квестов и заданий, которые не всем по силу. При
-				первом заходе на локацию, говорили, что вылетают только птицы, а нихуя...
+				{cardModalData?.text}
 			</MiniInfoCell>
 
 			<Group>
 				<Tabs>
 					<HorizontalScroll>
 						<HorizontalCell>
-							<TabsItem
-								selected={selected === 'paths'}
-								onClick={() => setSelected('paths')}
-							>
-								Маршруты
-							</TabsItem>
+							{cardModalData.type === 'org' && (
+								<>
+									<TabsItem
+										selected={selected === 'actualEvents'}
+										onClick={() => setSelected('actualEvents')}
+									>
+										Актуал.
+									</TabsItem>
 
-							<TabsItem
-								selected={selected === 'about'}
-								onClick={() => setSelected('about')}
-							>
-								О событии
-							</TabsItem>
-							<TabsItem
-								selected={selected === 'facts'}
-								onClick={() => setSelected('facts')}
-							>
-								Интересные факты
-							</TabsItem>
+									<TabsItem
+										// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
+										status={23}
+										selected={selected === 'lastEvents'}
+										onClick={() => setSelected('lastEvents')}
+									>
+										Прош. соб
+									</TabsItem>
+									<TabsItem
+										// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
+										status={23}
+										selected={selected === 'tasks'}
+										onClick={() => setSelected('tasks')}
+									>
+										Задания
+									</TabsItem>
+								</>
+							)}
 
-							<TabsItem
-								selected={selected === 'actualEvents'}
-								onClick={() => setSelected('actualEvents')}
-							>
-								Актуал.
-							</TabsItem>
+							{cardModalData.type === 'place' && (
+								<>
+									<TabsItem
+										selected={selected === 'paths'}
+										onClick={() => setSelected('paths')}
+									>
+										Маршруты
+									</TabsItem>
+									<TabsItem
+										selected={selected === 'facts'}
+										onClick={() => setSelected('facts')}
+									>
+										Интересные факты
+									</TabsItem>
+								</>
+							)}
+
+							{cardModalData.type === 'mero' && (
+								<>
+									<TabsItem
+										selected={selected === 'about'}
+										onClick={() => setSelected('about')}
+									>
+										О событии
+									</TabsItem>
+									<TabsItem
+										// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
+										status={23}
+										selected={selected === 'otherEvents'}
+										onClick={() => setSelected('otherEvents')}
+									>
+										Другие события
+									</TabsItem>
+								</>
+							)}
 
 							<TabsItem
 								// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
@@ -308,33 +344,6 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 								onClick={() => setSelected('reviews')}
 							>
 								Отзывы
-							</TabsItem>
-
-							<TabsItem
-								// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
-								status={23}
-								selected={selected === 'otherEvents'}
-								onClick={() => setSelected('otherEvents')}
-							>
-								Другие события
-							</TabsItem>
-
-							<TabsItem
-								// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
-								status={23}
-								selected={selected === 'lastEvents'}
-								onClick={() => setSelected('lastEvents')}
-							>
-								Прош. соб
-							</TabsItem>
-
-							<TabsItem
-								// before={mode === 'default' ? <Icon24PictureOutline /> : <Icon20PictureOutline />}
-								status={23}
-								selected={selected === 'tasks'}
-								onClick={() => setSelected('tasks')}
-							>
-								Задания
 							</TabsItem>
 						</HorizontalCell>
 					</HorizontalScroll>
