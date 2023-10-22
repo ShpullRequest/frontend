@@ -1,8 +1,12 @@
 import {FC, useEffect} from 'react'
 
 import {
+	Epic,
+	ModalRoot,
 	PanelHeader,
 	Platform,
+	Root,
+	ScreenSpinner,
 	SplitCol,
 	SplitLayout,
 	View,
@@ -20,9 +24,6 @@ import {User} from '@pages/user'
 import {useQuery, useQueryClient} from '@tanstack/react-query'
 import {ApiService} from '@/services'
 import {LocationPicker} from '@/components'
-import {Route} from '../route'
-import {Favorites} from '../favorite'
-import {Filters} from '../filters'
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
@@ -39,35 +40,34 @@ export const Layout: FC = () => {
 		console.log(activeView, activePanel)
 	}, [activeView, activePanel])
 
-	// Временно поставлю коммент, чтобы не тратить время на лоадер
-	const queryClient = useQueryClient()
-	const query = useQuery({
-		retryOnMount: false,
-		retry: false,
-		queryKey: ['user'],
-		queryFn: () => {
-			setPopout(<ScreenSpinner state="loading" />)
-			return ApiService.getUser()
-		},
-		onSuccess: (data) => {
-			console.log(data)
-			if (!data) {
-				// Тут смотрим на то, прошел ли User onBording
-				// Если нет, то запускаем функцию онбординга
-			}
-			if (!data) {
-				// Если у юзера нет инфы о прошлой локации, то открываем Panel с тем, чтобы он выбрал
-				// Если инфа имеется, то октрываем приложение (ничего не делаем)
-			}
-			setPopout(null)
+	// // Временно поставлю коммент, чтобы не тратить время на лоадер
+	// const queryClient = useQueryClient()
+	// const query = useQuery({
+	// 	retryOnMount: false,
+	// 	retry: false,
+	// 	queryKey: ['user'],
+	// 	queryFn: () => {
+	// 		setPopout(<ScreenSpinner state="loading" />)
+	// 		return ApiService.getUser()
+	// 	},
+	// 	onSuccess: (data) => {
+	// 		if (!data) {
+	// 			// Тут смотрим на то, прошел ли User onBording
+	// 			// Если нет, то запускаем функцию онбординга
+	// 		}
+	// 		if (!data) {
+	// 			// Если у юзера нет инфы о прошлой локации, то открываем Panel с тем, чтобы он выбрал
+	// 			// Если инфа имеется, то октрываем приложение (ничего не делаем)
+	// 		}
+	// 		setPopout(null)
 
-			console.log(data)
-		},
-		onError: (error) => {
-			setPopout(null)
-			console.error('there was an error', error)
-		},
-	})
+	// 		console.log(data)
+	// 	},
+	// 	onError: (error) => {
+	// 		setPopout(null)
+	// 		console.error('there was an error', error)
+	// 	},
+	// })
 
 	return (
 		<SplitLayout
@@ -94,9 +94,6 @@ export const Layout: FC = () => {
 						<Home nav={URL.homePanel} />
 						<Components nav={URL.componentsPanel} />
 						<LocationPicker nav={URL.locationPanel} />
-						<Route nav={URL.routePanel} />
-						<Favorites nav={URL.favoritesPanel} />
-						<Filters nav={URL.filtersPanel} />
 					</View>
 
 					<View

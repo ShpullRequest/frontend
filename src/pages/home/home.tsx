@@ -14,7 +14,6 @@ import {
 	PanelHeaderButton,
 	Platform,
 	SimpleCell,
-	Spacing,
 	usePlatform,
 } from '@vkontakte/vkui'
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
@@ -39,30 +38,73 @@ export const Home: FC<NavIdProps> = (props) => {
 				<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Название страницы</PanelHeader>
 			)}
 			<Map isPanelNav />
-			<Spacing size={8}>
-			</Spacing>
 			<Content>
-				<Div>
-					<Headline
-						level="1"
-						weight="2"
-					>
-						Открывайте новое
-					</Headline>
-				</Div>
-				<CardScroll size="s">
-					<Card>
-						<div style={{paddingBottom: '66%'}} />
-					</Card>
-					<Card>
-						<div style={{paddingBottom: '66%'}} />
-					</Card>
-					<Card>
-						<div style={{paddingBottom: '66%'}} />
-					</Card>
-				</CardScroll>
+				<Group separator="hide">
+					<Div>
+						<Headline
+							level="2"
+							weight="2"
+						>
+							Открывайте новое
+						</Headline>
+					</Div>
+					<CardScroll size="s">
+						<Card>
+							<div style={{paddingBottom: '66%'}} />
+						</Card>
+						<Card>
+							<div style={{paddingBottom: '66%'}} />
+						</Card>
+						<Card>
+							<div style={{paddingBottom: '66%'}} />
+						</Card>
+					</CardScroll>
+				</Group>
 				<Group>
-					Info
+					<Div>
+						<Headline
+							level="2"
+							weight="2"
+						>
+							Жилье
+						</Headline>
+					</Div>
+					<CardGrid size="s">
+						<Card>
+							<div style={{paddingBottom: '92%'}} />
+						</Card>
+						<Card>
+							<div style={{paddingBottom: '92%'}} />
+						</Card>
+						<Card>
+							<div style={{paddingBottom: '92%'}} />
+						</Card>
+					</CardGrid>
+				</Group>
+				<Group mode="plain">
+					<SimpleCell
+						before={<Icon28PawOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(URL.persikPanel)}
+					>
+						Перейти к Персику
+					</SimpleCell>
+
+					<SimpleCell
+						before={<Icon28CompassOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(URL.componentsPanel)}
+					>
+						Перейти к компонентам
+					</SimpleCell>
+
+					<SimpleCell
+						before={<Icon28ErrorOutline />}
+						after={<Icon28ChevronRightOutline />}
+						onClick={() => router.push(`/abobus`)}
+					>
+						Перейти к 404 странице
+					</SimpleCell>
 				</Group>
 			</Content>
 		</Panel>

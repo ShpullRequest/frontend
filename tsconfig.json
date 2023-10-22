@@ -23,7 +23,6 @@
       "@services/*": ["src/services/*"],
       "@models/*": ["src/models/*"],
       "@router/*": ["src/router/*"],
-      "@helpers/*": ["src/helpers/*"],
     },
     "allowJs": false,
     "skipLibCheck": true,

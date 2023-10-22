@@ -10,45 +10,15 @@ import {useUserStore} from '@/store'
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {ContentPanel} from '@/components/content'
-import {parseCoordinates} from '@/helpers'
 
 interface Map extends React.HTMLAttributes<HTMLDivElement> {
 	isPanelNav?: boolean
-	minified?: boolean
 }
 
-export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
+export const Map = ({isPanelNav = false, ...props}: Map) => {
 	const user = useUserStore.use.user()
-	const selectedGeo = useUserStore.use.selectedGeo()
 	const router = useRouteNavigator()
 	const platform = usePlatform()
-
-	var userPointData = {
-		type: 'FeatureCollection',
-		features: [
-			{
-				type: 'Feature',
-				geometry: {
-					type: 'Point',
-					coordinates: [37.6165, 55.7505],
-				},
-			},
-			{
-				type: 'Feature',
-				geometry: {
-					type: 'Point',
-					coordinates: [37.4165, 55.7505],
-				},
-			},
-			{
-				type: 'Feature',
-				geometry: {
-					type: 'Point',
-					coordinates: [37.6165, 55.8505],
-				},
-			},
-		],
-	}
 
 	// Map Будет всегда отображать значки, если они есть глобальном стейте
 	// В зависомости от того, что мы хотим отобразить: Список точек или маршрут, мы будем отсылать
@@ -59,28 +29,9 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 		const map = new mmrgl.Map({
 			container: 'map',
 			zoom: 8,
-			center: selectedGeo ? parseCoordinates(selectedGeo) : [37.4165, 55.7505],
+			center: [30.316229, 59.938732],
 			style: 'mmr://api/styles/main_style.json',
 			hash: false,
-		})
-
-		map.on('load', () => {
-			map.loadImage('https://maps.vk.com/api/styles/pins/blue_target.png', function (error: any, image: any) {
-				if (error) throw error
-				map.addImage('custom_pin', image)
-				map.addLayer({
-					id: 'points',
-					type: 'symbol',
-					source: {
-						type: 'geojson',
-						data: userPointData,
-					},
-					layout: {
-						'icon-image': 'custom_pin',
-						'icon-size': 1,
-					},
-				})
-			})
 		})
 
 		return () => {
@@ -92,11 +43,11 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 	return platform !== Platform.VKCOM ? (
 		<div
 			id="map"
-			className={minified ? 'mapLayout--mobMini' : 'mapLayout--mob'}
+			className="mapLayout--mob"
 		>
 			<div className="mapNavWrapper">
 				<div className="mapNav--mob">
-					{isPanelNav && <SimpleSearch mobile={true} />}
+					<SimpleSearch mobile={true} />
 				</div>
 			</div>
 			{/* <Avatar
@@ -108,17 +59,18 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 				gradientColor={5}
 				withBorder={false}
 			/> */}
+			{isPanelNav && <ContentPanel className="mapBottomNav" />}
 		</div>
 	) : (
 		<div
 			id="map"
-			className={minified ? 'mapLayoutMini' : 'mapLayout'}
+			className="mapLayout"
 		>
 			<div className="mapNavWrapper">
 				<div className="mapNav">
-					{isPanelNav && <SimpleSearch mobile={false} />}
+					<SimpleSearch mobile={false} />
 					<Group separator="hide">
-						<div className="navIconWrapper" style={{borderRadius: "10px"}}>
+						<div className="navIconWrapper">
 							{/* <Icon28SlidersOutline
 								onClick={() => router.push(URL.filtersPanel)}
 								style={{cursor: 'pointer'}}
