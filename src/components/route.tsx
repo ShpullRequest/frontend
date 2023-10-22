@@ -3,6 +3,8 @@ import {
 	Div,
 	Group,
 	Headline,
+	HorizontalCell,
+	HorizontalScroll,
 	MiniInfoCell,
 	NavIdProps,
 	Panel,
@@ -27,6 +29,9 @@ import {
 	Icon20WriteOutline,
 } from '@vkontakte/icons'
 import {Content} from '@/components/content'
+import { Banners } from '@/const'
+import { Components } from '@/pages'
+import { BannerMain } from './BannerMain'
 
 export const Route: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
@@ -68,6 +73,46 @@ export const Route: FC<NavIdProps> = (props) => {
 						{'Создатель'}
 					</MiniInfoCell>
 				</Div>
+								<Div>
+					<Headline
+						level="1"
+						weight="2"
+					>
+						Открывайте новое
+					</Headline>
+				</Div>
+
+				<HorizontalScroll
+					showArrows
+					getScrollToLeft={(i) => i - 120}
+					getScrollToRight={(i) => i + 120}
+				>
+					{Banners.map((banner, key) => {
+						return (
+							<>
+								<HorizontalCell size="l">
+									<BannerMain
+										key={key}
+										//@ts-ignore
+										header={banner.title}
+										subheader={banner.subtitle}
+										url={banner.url}
+									/>
+								</HorizontalCell>
+							</>
+						)
+					})}
+				</HorizontalScroll>
+
+				<Div>
+					<Headline
+						level="1"
+						weight="2"
+					>
+						Рекомендуем посетить
+					</Headline>
+				</Div>
+				<Components />
 			</Content>
 		</Panel>
 	)

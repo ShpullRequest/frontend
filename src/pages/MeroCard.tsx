@@ -15,7 +15,7 @@ interface ContentsForCard extends GroupProps {
 	type: string
 }
 
-export const MeroCard: FC<NavIdProps> = ({title, subtitle, header, text, caption, url, type}: ContentsForCard) => {
+export const MeroCard = ({title, subtitle, header, text, caption, url, type}: ContentsForCard) => {
 	const cardStyle: React.CSSProperties = {
 		position: 'relative',
 	}

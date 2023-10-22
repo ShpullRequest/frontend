@@ -49,6 +49,7 @@ export const Components: FC<NavIdProps> = (props) => {
 						return (
 							<MeroCard
 								key={key}
+								//@ts-ignore
 								title={card.title}
 								subtitle={card.subtitle}
 								header={card.header}
