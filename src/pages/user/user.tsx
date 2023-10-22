@@ -29,7 +29,7 @@ import {
 } from '@vkontakte/vkui'
 import {classNamesString} from '@vkontakte/vkui/dist/lib/classNames'
 
-import {ErrorSnackbar, SuccessSnackbar} from '@/components'
+import {ErrorSnackbar, SuccessSnackbar, VoidPlaceholder} from '@/components'
 import {useModalStore, usePopoutStore, useSnackbarStore, useUserStore} from '@/store'
 
 import {TestActionSheet, TestAlert, TestModalCard} from '@/popouts'
@@ -48,7 +48,6 @@ export const User: FC<NavIdProps> = (props) => {
 
 	useEffect(() => {
 		send('VKWebAppGetUserInfo').then((value) => setUser(value))
-		console.log(window.location.href)
 	}, [])
 
 	const setLoadingScreenSpinner = () => {
@@ -56,7 +55,7 @@ export const User: FC<NavIdProps> = (props) => {
 		setTimeout(clearPopout, 2000)
 	}
 
-	const [contextOpened, setContextOpened] = React.useState(true)
+	const [contextOpened, setContextOpened] = React.useState(false)
 	const [mode, setMode] = React.useState('all')
 
 	const toggleContext = () => {
@@ -68,11 +67,12 @@ export const User: FC<NavIdProps> = (props) => {
 		requestAnimationFrame(toggleContext)
 	}
 
+	const router = useRouteNavigator()
 	return (
 		<Panel {...props}>
-			<PanelHeader before={<PanelHeaderBack label="Назад" />}>
+			<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>
 				<PanelHeaderContent
-					status="Любимчик географички"
+					status="Путешественник"
 					before={
 						<Avatar
 							src={user?.photo_100}
@@ -88,7 +88,7 @@ export const User: FC<NavIdProps> = (props) => {
 					}
 					onClick={toggleContext}
 				>
-					{user?.first_name} {user?.last_name} Профиль
+					{user?.first_name} {user?.last_name}
 				</PanelHeaderContent>
 			</PanelHeader>
 			<PanelHeaderContext
@@ -114,43 +114,49 @@ export const User: FC<NavIdProps> = (props) => {
 			</PanelHeaderContext>
 			<Group>
 				<SimpleCell
+					before={<Icon28LocationMapOutline />}
+					onClick={() => router.push(URL.locationPanel)}
+				>
+					Мое местоположение
+				</SimpleCell>
+				<SimpleCell
 					before={<Icon28FavoriteOutline />}
-					onClick={setActionRefHandler}
+					onClick={() => router.push(URL.favoritesPanel)}
 				>
 					Избранное
 				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon28HistoryBackwardOutline />}
-					onClick={() => setPopout(<TestAlert />)}
+					onClick={() => router.push(URL.historyPanel)}
 				>
 					История
 				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon28CoinsOutline />}
-					onClick={setLoadingScreenSpinner}
+					onClick={() => setPopout(<TestAlert />)}
 				>
 					Коины
 				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon28LocationMapOutline />}
-					onClick={setLoadingScreenSpinner}
+					onClick={() => router.push(URL.routePanel)}
 				>
 					Мои маршруты
 				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon28CupOutline />}
-					onClick={setLoadingScreenSpinner}
+					onClick={() => setPopout(<TestAlert />)}
 				>
 					Мои достижения
 				</SimpleCell>
 
 				<SimpleCell
 					before={<Icon28PrivacyOutline />}
-					onClick={setLoadingScreenSpinner}
+					onClick={() => setPopout(<TestAlert />)}
 				>
 					Приватность
 				</SimpleCell>

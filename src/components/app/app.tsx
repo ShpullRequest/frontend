@@ -14,6 +14,7 @@ import {QueryClient, QueryClientProvider, useQuery, useQueryClient} from '@tanst
 import {Fallback} from '@/pages'
 import {useApiStore, usePopoutStore, useUserStore} from '@/store'
 import {ApiService} from '@/services'
+import { AppInit } from '@/onbordings'
 
 export const App: FC = () => {
 	// INFO: VKUI не умеет нормально определять desktop вне фрейма,
@@ -38,6 +39,7 @@ export const App: FC = () => {
 	const setUser = useUserStore.use.setUser()
 	useEffect(() => {
 		send('VKWebAppInit')
+		AppInit()
 		send('VKWebAppGetUserInfo').then((value) => setUser(value))
 	}, [])
 
