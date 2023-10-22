@@ -4,8 +4,6 @@ import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, Int
 const headers: Readonly<Record<string, string | boolean>> = {
 	Accept: 'application/json',
 	'Content-Type': 'application/json; charset=utf-8',
-	'Access-Control-Allow-Credentials': true,
-	'X-Requested-With': 'XMLHttpRequest',
 }
 
 // Поскольку используем Vk mini apps, в Header Authorization добавляем фрейм с подписью
@@ -32,8 +30,7 @@ class Http {
 	initHttp() {
 		const http = axios.create({
 			baseURL: ENV.API,
-			withCredentials: true,
-			headers,
+			withCredentials: false,
 		})
 
 		// Вешаем интерцептор на запрос
@@ -70,6 +67,10 @@ class Http {
 
 	put<T = any, R = AxiosResponse<T>>(url: string, data?: T, config?: AxiosRequestConfig): Promise<R> {
 		return this.http.put<T, R>(url, data, config)
+	}
+
+	patch<T = any, R = AxiosResponse<T>>(url: string, data?: T, config?: AxiosRequestConfig): Promise<R> {
+		return this.http.patch<T, R>(url, data, config)
 	}
 
 	delete<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
@@ -117,13 +118,12 @@ class Maps {
 	initHttp() {
 		const http = axios.create({
 			baseURL: ENV.MAPS_API,
-			withCredentials: true,
-			headers,
+			withCredentials: false,
 		})
 
 		// Вешаем интерцептор на запрос
 		http.interceptors.request.use((config) => {
-			config.params = {...config.params, API_KEY: ENV.VKMAPSAPIKEY}
+			config.params = {...config.params, api_key: ENV.VKMAPSAPIKEY}
 			return config
 		  }, (error) => Promise.reject(error))
 
@@ -147,10 +147,14 @@ class Maps {
 		return this.http.put<T, R>(url, data, config)
 	}
 
+	patch<T = any, R = AxiosResponse<T>>(url: string, data?: T, config?: AxiosRequestConfig): Promise<R> {
+		return this.http.patch<T, R>(url, data, config)
+	}
+
 	delete<T = any, R = AxiosResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
 		return this.http.delete<T, R>(url, config)
 	}
 }
 
 export const $api = new Http()
-export const $maps = new Http()
+export const $maps = new Maps()

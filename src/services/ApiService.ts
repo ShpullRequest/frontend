@@ -6,19 +6,44 @@ import {TestPayload} from '@/models'
 
 export class ApiService {
 	static async test(testPayload: TestPayload) {
-		return $api.post<TestPayload>('/test', testPayload)
+		return $api.post<TestPayload>('/test/', testPayload)
 	}
 
-	static async getUser(){
-		return $api.get('/users/get')
+	static async getUser() {
+		return $api.get('/users/')
 	}
 
-	static async onboardingComplete(){
-		return $api.post('/???')
+	static async getEvents() {
+		return $api.get('/events/')
 	}
 
-	static async getlocation() {
-		return $maps.get('/ip2geo')
+	static async getPlaces() {
+		return $api.get('/places/')
+	}
+
+	static async getCompany() {
+		return $api.get('/company/')
+	}
+
+	static async getRoutes() {
+		return $api.get('/routes/')
+	}
+
+	static async getHotels() {
+		return $api.get('/routes/1')
+	}
+
+	static async getFood() {
+		return $api.get('/routes/2')
+	}
+	
+
+	static async onboardingComplete() {
+		return $api.patch('/users/'), {passed_onboarding: true}
+	}
+
+	static async getlocation(params: Object) {
+		return $maps.post('/ip2geo/'), params
 	}
 }
 

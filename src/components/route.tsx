@@ -1,12 +1,9 @@
 import {FC} from 'react'
-import './home.css'
 import {
-	Card,
-	CardGrid,
-	CardScroll,
 	Div,
 	Group,
 	Headline,
+	MiniInfoCell,
 	NavIdProps,
 	Panel,
 	PanelHeader,
@@ -14,16 +11,24 @@ import {
 	PanelHeaderButton,
 	Platform,
 	SimpleCell,
-	Spacing,
+	Title,
 	usePlatform,
 } from '@vkontakte/vkui'
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {Map} from '@/components/map'
-import {Icon28ChevronRightOutline, Icon28CompassOutline, Icon28ErrorOutline, Icon28PawOutline} from '@vkontakte/icons'
+import {
+	Icon28PawOutline,
+	Icon28ChevronRightOutline,
+	Icon28CompassOutline,
+	Icon28ErrorOutline,
+	Icon20CommunityName,
+	Icon20GestureOutline,
+	Icon20WriteOutline,
+} from '@vkontakte/icons'
 import {Content} from '@/components/content'
 
-export const Home: FC<NavIdProps> = (props) => {
+export const Route: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 	const router = useRouteNavigator()
 	return (
@@ -35,35 +40,34 @@ export const Home: FC<NavIdProps> = (props) => {
 		// В Contet запихиваем контент, который будет в нижней части
 		<Panel {...props}>
 			{/* {platform !== Platform.VKCOM && <PanelHeader>Prisma</PanelHeader>} */}
-			{platform !== Platform.VKCOM && (
-				<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Название страницы</PanelHeader>
-			)}
-			<Map isPanelNav />
-			<Spacing size={8}>
-			</Spacing>
+			<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Сценарий</PanelHeader>
+			<Map minified />
 			<Content>
 				<Div>
-					<Headline
-						level="1"
-						weight="2"
+					<MiniInfoCell
+						before={<Icon20GestureOutline />}
+						textWrap="full"
 					>
-						Открывайте новое
-					</Headline>
+						<Title
+							level="2"
+							weight="2"
+						>
+							{'Название маршрута'}
+						</Title>
+					</MiniInfoCell>
+					<MiniInfoCell
+						before={<Icon20CommunityName />}
+						textWrap="full"
+					>
+						{'Описание этого замечательного маршрута'}
+					</MiniInfoCell>
+					<MiniInfoCell
+						before={<Icon20WriteOutline />}
+						textWrap="full"
+					>
+						{'Создатель'}
+					</MiniInfoCell>
 				</Div>
-				<CardScroll size="s">
-					<Card>
-						<div style={{paddingBottom: '66%'}} />
-					</Card>
-					<Card>
-						<div style={{paddingBottom: '66%'}} />
-					</Card>
-					<Card>
-						<div style={{paddingBottom: '66%'}} />
-					</Card>
-				</CardScroll>
-				<Group>
-					Info
-				</Group>
 			</Content>
 		</Panel>
 	)
