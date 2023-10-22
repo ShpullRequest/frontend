@@ -6,16 +6,15 @@ export enum URL {
 	personalProfileView = 'personalProfile',
 	organizationProfileView = 'organizationProfile',
 
-    homePanel = "/",
-    personalPanel = "/personal",
-    organizationPanel = "/organization",
-    filtersPanel = "/filters",
-    prizmaPanel = "/prizma",
-    routePanel = "/route",
-    favoritesPanel = "/favorites",
-    historyPanel = "/history",
-    locationPanel = '/location',
-
+	homePanel = '/',
+	personalPanel = '/personal',
+	organizationPanel = '/organization',
+	filtersPanel = '/filters',
+	prizmaPanel = '/prizma',
+	routePanel = '/route',
+	favoritesPanel = '/favorites',
+	historyPanel = '/history',
+	locationPanel = '/location',
 
 	// old delete later
 	persikPanel = '/persik',
@@ -26,26 +25,26 @@ export enum URL {
 }
 
 export const routes = RoutesConfig.create([
-    createRoot("root", [
-      createView(URL.homeView, [ 
-        createPanel(URL.homePanel, URL.homePanel, []),  // Тут основной интерфейс, в который приходит то, что мы отображаем в конкретный момент. Тут будут все кнопочки, блоки и логика
-        createPanel(URL.componentsPanel, URL.componentsPanel, []),
-        createPanel(URL.personalPanel, URL.personalPanel, []),
-        createPanel(URL.organizationPanel, URL.organizationPanel, []),
-        createPanel(URL.prizmaPanel, URL.prizmaPanel, []),
-        createPanel(URL.routePanel, URL.routePanel, []),
-        createPanel(URL.favoritesPanel, URL.favoritesPanel, []),
-        createPanel(URL.filtersPanel, URL.filtersPanel, []),
-        createPanel(URL.historyPanel, URL.historyPanel, []),
-        createPanel(URL.locationPanel, URL.locationPanel, []),
-      ]),
-      createView(URL.personalProfileView, [
-        createPanel(URL.personalPanel, URL.personalPanel, []), // Тут страница пользователя
-      ]),
-      createView(URL.organizationProfileView, [
-        createPanel(URL.organizationPanel, URL.organizationPanel, []), // Тут страница организатора
-      ]),
-    ]),
-  ])
+	createRoot('root', [
+		createView(URL.homeView, [
+			createPanel(URL.homePanel, URL.homePanel, []), // Тут основной интерфейс, в который приходит то, что мы отображаем в конкретный момент. Тут будут все кнопочки, блоки и логика
+			createPanel(URL.componentsPanel, URL.componentsPanel, []),
+			createPanel(URL.personalPanel, URL.personalPanel, []),
+			createPanel(URL.organizationPanel, URL.organizationPanel, []),
+			createPanel(URL.prizmaPanel, URL.prizmaPanel, []),
+			createPanel(URL.routePanel, URL.routePanel, []),
+			createPanel(URL.favoritesPanel, URL.favoritesPanel, []),
+			createPanel(URL.filtersPanel, URL.filtersPanel, []),
+			createPanel(URL.historyPanel, URL.historyPanel, []),
+			createPanel(URL.locationPanel, URL.locationPanel, []),
+		]),
+		createView(URL.personalProfileView, [
+			createPanel(URL.personalPanel, URL.personalPanel, []), // Тут страница пользователя
+		]),
+		createView(URL.organizationProfileView, [
+			createPanel(URL.organizationPanel, URL.organizationPanel, []), // Тут страница организатора
+		]),
+	]),
+])
 
 export const router = createHashRouter(routes.getRoutes())

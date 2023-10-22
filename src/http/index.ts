@@ -16,7 +16,6 @@ const injectAuthorization = (config: InternalAxiosRequestConfig): InternalAxiosR
 	}
 }
 
-
 class Http {
 	// Создание пустого инстанса Аксиоса, на который мы будем вешать все настройки
 	private instance: AxiosInstance | null = null
@@ -104,7 +103,6 @@ class Http {
 	}
 }
 
-
 class Maps {
 	// Создание пустого инстанса Аксиоса, на который мы будем вешать все настройки
 	private instance: AxiosInstance | null = null
@@ -122,10 +120,13 @@ class Maps {
 		})
 
 		// Вешаем интерцептор на запрос
-		http.interceptors.request.use((config) => {
-			config.params = {...config.params, api_key: ENV.VKMAPSAPIKEY}
-			return config
-		  }, (error) => Promise.reject(error))
+		http.interceptors.request.use(
+			(config) => {
+				config.params = {...config.params, api_key: ENV.VKMAPSAPIKEY}
+				return config
+			},
+			(error) => Promise.reject(error),
+		)
 
 		this.instance = http
 		return http

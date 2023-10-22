@@ -36,7 +36,6 @@ export class ApiService {
 	static async getFood() {
 		return $api.get('/routes/2')
 	}
-	
 
 	static async onboardingComplete() {
 		return $api.patch('/users/'), {passed_onboarding: true}

@@ -1,11 +1,5 @@
 import {FC} from 'react'
-import {
-	NavIdProps,
-	Panel,
-	PanelHeader,
-	PanelHeaderBack,
-	usePlatform,
-} from '@vkontakte/vkui'
+import {NavIdProps, Panel, PanelHeader, PanelHeaderBack, usePlatform} from '@vkontakte/vkui'
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {Map} from '@/components/map'
 import {Content} from '@/components/content'
@@ -18,9 +12,7 @@ export const Favorites: FC<NavIdProps> = (props) => {
 			{/* {platform !== Platform.VKCOM && <PanelHeader>Prisma</PanelHeader>} */}
 			<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Избранное</PanelHeader>
 			<Map minified />
-			<Content>
-                
-			</Content>
+			<Content></Content>
 		</Panel>
 	)
 }

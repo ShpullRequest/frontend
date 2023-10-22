@@ -95,9 +95,7 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 			className={minified ? 'mapLayout--mobMini' : 'mapLayout--mob'}
 		>
 			<div className="mapNavWrapper">
-				<div className="mapNav--mob">
-					{isPanelNav && <SimpleSearch mobile={true} />}
-				</div>
+				<div className="mapNav--mob">{isPanelNav && <SimpleSearch mobile={true} />}</div>
 			</div>
 			{/* <Avatar
 				className="mapNavButton"
@@ -118,7 +116,10 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 				<div className="mapNav">
 					{isPanelNav && <SimpleSearch mobile={false} />}
 					<Group separator="hide">
-						<div className="navIconWrapper" style={{borderRadius: "10px"}}>
+						<div
+							className="navIconWrapper"
+							style={{borderRadius: '10px'}}
+						>
 							{/* <Icon28SlidersOutline
 								onClick={() => router.push(URL.filtersPanel)}
 								style={{cursor: 'pointer'}}

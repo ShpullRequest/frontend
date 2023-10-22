@@ -39,4 +39,3 @@ const coordinates: [number, number][] = [
 	[37.4165, 55.7505],
 	[37.6165, 55.8505],
 ]
-
