@@ -1,5 +1,4 @@
 import {FC, useEffect} from 'react'
-import {FC, useEffect} from 'react'
 
 import {
 	Epic,
@@ -7,13 +6,11 @@ import {
 	PanelHeader,
 	Platform,
 	Root,
+	ScreenSpinner,
 	SplitCol,
 	SplitLayout,
-	usePlatform,
-	ModalRoot,
 	View,
-	Root,
-	ScreenSpinner,
+	usePlatform,
 } from '@vkontakte/vkui'
 
 import {Components, Home} from '@/pages'
@@ -96,7 +93,7 @@ export const Layout: FC = () => {
 					>
 						<Home nav={URL.homePanel} />
 						<Components nav={URL.componentsPanel} />
-						<LocationPicker nav={URL.locationPanel}/>
+						<LocationPicker nav={URL.locationPanel} />
 					</View>
 
 					<View
