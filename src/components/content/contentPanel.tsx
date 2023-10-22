@@ -16,15 +16,22 @@ export const ContentPanel = ({className, ...props}: GroupProps) => {
 			{...props}
 		>
 			<div className="contentPanel">
-				<Icon28SlidersOutline
+				{/* <Icon28SlidersOutline
 					onClick={() => router.push(URL.filtersPanel)}
+					style={{cursor: 'pointer'}}
+				/> */}
+				<Avatar
+					src={user?.photo_100}
+					size={36}
+					onClick={() => router.push(URL.personalPanel)}
 					style={{cursor: 'pointer'}}
 				/>
 				<Avatar
-					src={user?.photo_100}
-					size={28}
-					onClick={() => router.push(URL.personalPanel)}
 					style={{cursor: 'pointer'}}
+					onClick={() => router.push(URL.filtersPanel)}
+					size={36}
+					fallbackIcon={<Icon28SlidersOutline />}
+					src="#"
 				/>
 			</div>
 		</Group>

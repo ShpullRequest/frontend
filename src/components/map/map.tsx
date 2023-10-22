@@ -50,7 +50,15 @@ export const Map = ({isPanelNav = false, ...props}: Map) => {
 					<SimpleSearch mobile={true} />
 				</div>
 			</div>
-			<Avatar className="mapNavButton" style={{cursor: 'pointer'}} size={28} fallbackIcon={<Icon28LocationOutline />} src="#"/>
+			<Avatar
+				className="mapNavButton"
+				style={{cursor: 'pointer'}}
+				size={40}
+				fallbackIcon={<Icon28LocationOutline />}
+				src="#"
+				gradientColor={5}
+				withBorder={false}
+			/>
 			{isPanelNav && <ContentPanel className="mapBottomNav" />}
 		</div>
 	) : (
@@ -63,21 +71,35 @@ export const Map = ({isPanelNav = false, ...props}: Map) => {
 					<SimpleSearch mobile={false} />
 					<Group separator="hide">
 						<div className="navIconWrapper">
-							<Icon28SlidersOutline
+							{/* <Icon28SlidersOutline
 								onClick={() => router.push(URL.filtersPanel)}
+								style={{cursor: 'pointer'}}
+							/> */}
+							<Avatar
+								src={user?.photo_100}
+								size={36}
+								onClick={() => router.push(URL.personalPanel)}
 								style={{cursor: 'pointer'}}
 							/>
 							<Avatar
-								src={user?.photo_100}
-								size={28}
-								onClick={() => router.push(URL.personalPanel)}
 								style={{cursor: 'pointer'}}
+								onClick={() => router.push(URL.filtersPanel)}
+								size={36}
+								fallbackIcon={<Icon28SlidersOutline />}
+								src="#"
 							/>
 						</div>
 					</Group>
 				</div>
 			</div>
-			<Avatar className="mapNavButton" style={{cursor: 'pointer'}} size={28} fallbackIcon={<Icon28LocationOutline />} src="#" gradientColor="blue" />
+			<Avatar
+				className="mapNavButton"
+				style={{cursor: 'pointer'}}
+				size={40}
+				fallbackIcon={<Icon28LocationOutline />}
+				src="#"
+				gradientColor="blue"
+			/>
 		</div>
 	)
 }

@@ -22,10 +22,10 @@
     position: absolute;
     z-index: 100;
     bottom: 0;
-    right: 20px;
     background-color: transparent;
     display: flex;
-    justify-content: end;
+    justify-content: start;
+    left: 20px;
 }
 
 .mapNav {
@@ -50,6 +50,6 @@
 .mapNavButton {
     position: absolute;
     z-index: 100;
-    bottom: 70px;
+    bottom: 55px;
     right: 20px;
 }
