@@ -1,7 +1,7 @@
 import {FC, useEffect, useState} from 'react'
 
 import {send} from '@vkontakte/vk-bridge'
-import {AdaptivityProvider, AppRoot, ConfigProvider, Platform, platform} from '@vkontakte/vkui'
+import {AdaptivityProvider, AppRoot, ConfigProvider, Platform, ScreenSpinner, platform} from '@vkontakte/vkui'
 import {BREAKPOINTS} from '@vkontakte/vkui/dist/shared/breakpoints'
 import {RouterProvider} from '@vkontakte/vk-mini-apps-router'
 import {router, routes} from '@/router'
@@ -10,9 +10,10 @@ import {Layout} from '@/components'
 import '@vkontakte/vkui/dist/vkui.css'
 import './app.css'
 
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import { Fallback } from '@/pages'
-import { useUserStore } from '@/store'
+import {QueryClient, QueryClientProvider, useQuery, useQueryClient} from '@tanstack/react-query'
+import {Fallback} from '@/pages'
+import {useApiStore, usePopoutStore, useUserStore} from '@/store'
+import {ApiService} from '@/services'
 
 export const App: FC = () => {
 	// INFO: VKUI не умеет нормально определять desktop вне фрейма,
@@ -33,20 +34,21 @@ export const App: FC = () => {
 		}
 	}, [])
 
-	
 	// INFO: Отсылаем событие инициализации и собираем инфу о пользователе
 	const setUser = useUserStore.use.setUser()
 	useEffect(() => {
 		send('VKWebAppInit')
 		send('VKWebAppGetUserInfo').then((value) => setUser(value))
-		console.log(window.location.href)
 	}, [])
 
 	// INFO: Получаем контекст RaactQuery
 	const queryClient = new QueryClient()
 	return (
 		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} notFound={<Fallback />}>
+			<RouterProvider
+				router={router}
+				notFound={<Fallback />}
+			>
 				<ConfigProvider platform={platform}>
 					<AdaptivityProvider>
 						<AppRoot>

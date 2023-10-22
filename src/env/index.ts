@@ -11,7 +11,8 @@ export const envSchema = z.object({
   API: z.string(),
   NUMBER: z.coerce.number(),
   BOOL: z.coerce.boolean(),
-  VKMAPSAPIKEY: z.coerce.string()
+  VKMAPSAPIKEY: z.coerce.string(),
+  MAPS_API: z.coerce.string(),
 });
 
 // Функция для проверки ENV

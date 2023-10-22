@@ -1,30 +1,5 @@
 import {useApiStore} from '@/store/useApiStore'
-import {Icon24Filter, Icon24Cancel, Icon24Done} from '@vkontakte/icons'
-import {
-	usePlatform,
-	Group,
-	Search,
-	Cell,
-	Footer,
-	PanelHeader,
-	Platform,
-	PanelHeaderBack,
-	SimpleCell,
-	Avatar,
-	SplitLayout,
-	ModalRoot,
-	ModalPage,
-	ModalPageHeader,
-	PanelHeaderButton,
-	FormItem,
-	SelectMimicry,
-	Radio,
-	SplitCol,
-	View,
-	Panel,
-	List,
-	useAppearance,
-} from '@vkontakte/vkui'
+import {Cell, Group, Search, useAppearance} from '@vkontakte/vkui'
 import {useEffect, useState} from 'react'
 import {mockSearchData} from '@/models'
 
@@ -92,6 +67,11 @@ export const SimpleSearch = ({mobile}: any) => {
 		return () => clearTimeout(timer)
 	}, [visibleQ])
 
+	const pick = (res: any) => {
+		console.log(res)
+		setVisibleQ('')
+	}
+
 	return (
 		<Group
 			id="searchField"
@@ -106,6 +86,7 @@ export const SimpleSearch = ({mobile}: any) => {
 			{searchRes.length > 0 &&
 				searchRes.map((res) => (
 					<Cell
+						onClick={() => pick(res)}
 						style={{backgroundColor: appearance === 'dark' ? '#19191A' : 'white'}}
 						key={res.id}
 					>
@@ -113,7 +94,12 @@ export const SimpleSearch = ({mobile}: any) => {
 					</Cell>
 				))}
 			{searchRes.length === 0 && !!visibleQ.length && (
-				<Cell style={{backgroundColor: appearance === 'dark' ? '#19191A' : 'white'}}>Ничего не найдено</Cell>
+				<Cell
+					disabled
+					style={{backgroundColor: appearance === 'dark' ? '#19191A' : 'white'}}
+				>
+					Ничего не найдено
+				</Cell>
 			)}
 		</Group>
 	)

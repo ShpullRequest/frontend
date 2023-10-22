@@ -20,6 +20,7 @@ export enum URL {
     routePanel = "/route",
     favoritesPanel = "/favorites",
     historyPanel = "/history",
+    locationPanel = '/location',
 
 
     // old delete later
@@ -39,6 +40,7 @@ export const routes = RoutesConfig.create([
         createPanel(URL.routePanel, URL.routePanel, []),
         createPanel(URL.favoritesPanel, URL.favoritesPanel, []),
         createPanel(URL.historyPanel, URL.historyPanel, []),
+        createPanel(URL.locationPanel, URL.locationPanel, []),
       ]),
       createView(URL.personalProfileView, [
         createPanel(URL.personalPanel, URL.personalPanel, []), // Тут страница пользователя

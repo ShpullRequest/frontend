@@ -30,7 +30,12 @@ export const ContentPanel = ({className, ...props}: GroupProps) => {
 					style={{cursor: 'pointer'}}
 					onClick={() => router.push(URL.filtersPanel)}
 					size={36}
-					fallbackIcon={<Icon28SlidersOutline />}
+					fallbackIcon={
+						<Icon28SlidersOutline
+							width={24}
+							height={24}
+						/>
+					}
 					src="#"
 				/>
 			</div>

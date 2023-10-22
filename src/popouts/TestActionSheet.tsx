@@ -5,7 +5,7 @@ import { ActionSheet, ActionSheetItem, NavIdProps, ScreenSpinner } from '@vkonta
 import { usePopoutStore, useSnackbarStore } from '@/store'
 import { TestPayload, testValidation } from '@/models'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { TestService } from '@/services'
+import { ApiService } from '@/services'
 import { ErrorSnackbar, SuccessSnackbar } from '@/components'
 
 export const TestActionSheet: FC<NavIdProps> = () => {
@@ -25,7 +25,7 @@ export const TestActionSheet: FC<NavIdProps> = () => {
 		mutationKey: ['test'],
 		mutationFn: (testPayload: TestPayload) => {
 			setPopout(<ScreenSpinner state="loading" />)
-			return sleep(1000).then(() => TestService.test(testPayload))
+			return sleep(1000).then(() => ApiService.test(testPayload))
 		},
 		onSuccess: (data) => {
 			console.log(data)

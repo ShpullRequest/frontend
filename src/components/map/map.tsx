@@ -50,7 +50,7 @@ export const Map = ({isPanelNav = false, ...props}: Map) => {
 					<SimpleSearch mobile={true} />
 				</div>
 			</div>
-			<Avatar
+			{/* <Avatar
 				className="mapNavButton"
 				style={{cursor: 'pointer'}}
 				size={40}
@@ -58,7 +58,7 @@ export const Map = ({isPanelNav = false, ...props}: Map) => {
 				src="#"
 				gradientColor={5}
 				withBorder={false}
-			/>
+			/> */}
 			{isPanelNav && <ContentPanel className="mapBottomNav" />}
 		</div>
 	) : (
@@ -85,21 +85,26 @@ export const Map = ({isPanelNav = false, ...props}: Map) => {
 								style={{cursor: 'pointer'}}
 								onClick={() => router.push(URL.filtersPanel)}
 								size={36}
-								fallbackIcon={<Icon28SlidersOutline />}
+								fallbackIcon={
+									<Icon28SlidersOutline
+										width={24}
+										height={24}
+									/>
+								}
 								src="#"
 							/>
 						</div>
 					</Group>
 				</div>
 			</div>
-			<Avatar
+			{/* <Avatar
 				className="mapNavButton"
 				style={{cursor: 'pointer'}}
 				size={40}
 				fallbackIcon={<Icon28LocationOutline />}
 				src="#"
 				gradientColor="blue"
-			/>
+			/> */}
 		</div>
 	)
 }

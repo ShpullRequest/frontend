@@ -7,39 +7,66 @@ import {
 	SplitLayout,
 	usePlatform,
 	ModalRoot,
-	Epic,
 	View,
-	useAdaptivityConditionalRender,
 	Root,
+	ScreenSpinner,
 } from '@vkontakte/vkui'
 
-import {Components, Home, Info, Persik} from '@/pages'
+import {Components, Home} from '@/pages'
 import {TestModalCard} from '@/popouts'
-
-import {LayoutNav} from './nav'
-import {LayoutSidebar} from './sidebar'
-import {LayoutTabbar} from './tabbar'
 
 import './layout.css'
 import {useModalStore, usePopoutStore, useSnackbarStore} from '@/store'
 import {useActiveVkuiLocation} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {User} from '@pages/user'
+import {useQuery, useQueryClient} from '@tanstack/react-query'
+import {ApiService} from '@/services'
+import {LocationPicker} from '@/components'
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
 	const popout = usePopoutStore.use.popout()
+	const setPopout = usePopoutStore.use.setPopout()
 	const snackbar = useSnackbarStore.use.snackbar()
 	const modal = useModalStore.use.modal()
 
 	/** Получаем текущую позицию */
 	const {panelsHistory, view: activeView, panel: activePanel} = useActiveVkuiLocation()
-	// Отрисовка всей навигации производится в роутере через передачу Id в  поля по типу activeModal
-	// Если я не хочу иметь какую-то конкретную ссылку на popout или modal. Я могу глобально передавать id в корневой компонент
 
 	useEffect(() => {
-		console.log(panelsHistory)
-	}, [panelsHistory])
+		console.log(activeView, activePanel)
+	}, [activeView, activePanel])
+
+	// // Временно поставлю коммент, чтобы не тратить время на лоадер
+	// const queryClient = useQueryClient()
+	// const query = useQuery({
+	// 	retryOnMount: false,
+	// 	retry: false,
+	// 	queryKey: ['user'],
+	// 	queryFn: () => {
+	// 		setPopout(<ScreenSpinner state="loading" />)
+	// 		return ApiService.getUser()
+	// 	},
+	// 	onSuccess: (data) => {
+	// 		if (!data) {
+	// 			// Тут смотрим на то, прошел ли User onBording
+	// 			// Если нет, то запускаем функцию онбординга
+	// 		}
+	// 		if (!data) {
+	// 			// Если у юзера нет инфы о прошлой локации, то открываем Panel с тем, чтобы он выбрал
+	// 			// Если инфа имеется, то октрываем приложение (ничего не делаем)
+	// 		}
+	// 		setPopout(null)
+
+	// 		console.log(data)
+	// 	},
+	// 	onError: (error) => {
+	// 		setPopout(null)
+	// 		console.error('there was an error', error)
+	// 	},
+	// })
+
 	return (
 		<SplitLayout
 			header={platform !== Platform.VKCOM && <PanelHeader separator={false} />}
@@ -61,6 +88,7 @@ export const Layout: FC = () => {
 					>
 						<Home nav={URL.homePanel} />
 						<Components nav={URL.componentsPanel} />
+						<LocationPicker nav={URL.locationPanel}/>
 					</View>
 					<View
 						activePanel={activePanel || URL.personalPanel}
@@ -68,6 +96,7 @@ export const Layout: FC = () => {
 						history={panelsHistory}
 					>
 						<User nav={URL.personalPanel} />
+						{/* <LocationPicker nav={URL.locationPanel}/> */}
 					</View>
 				</Root>
 
