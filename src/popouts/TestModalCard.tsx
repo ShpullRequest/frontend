@@ -3,11 +3,16 @@ import React from 'react'
 
 import {Fragment} from 'react'
 
-import {Icon20ArticleOutline, Icon24Cancel, Icon24Done, Icon28Like} from '@vkontakte/icons'
+import {
+	Icon20AddCircleOutline,
+	Icon20ArticleOutline,
+	Icon20LinkCircleOutline,
+	Icon24Done,
+	Icon28Like,
+} from '@vkontakte/icons'
 import {
 	Button,
 	Card,
-	CardScroll,
 	Cell,
 	ContentCard,
 	Group,
@@ -28,6 +33,7 @@ import {
 import {useModalStore} from '@/store'
 import {MeroCard} from '@/pages/MeroCard'
 
+//TODO: ДЛЯ МЕРОПРИЯТИЙ С БИЛЕТАМИ И ПРОСТО МЕРОПРИЯТИЙ - ДИВ С ДВУМЯ ИКОНКАМИ И КНОПКОЙ КУПИТЬ БИЛЕТЫ
 // TODO: после получения запросов и всякой шняги добавить логику подгрузки и шняги с самоопределением типа карточки и показывания доп. иконок и функций!!!
 //Починить кнопку для спец действия (фиксированную)
 export const TestModalCard: FC<NavIdProps> = (props) => {
@@ -37,10 +43,6 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 	// const [mode, setMode] = React.useState('default')
 	const [selected, setSelected] = React.useState('paths')
 	const platform = usePlatform()
-
-	// const cardIconStyle: React.CSSProperties = {
-
-	// }
 
 	const fixedStyles: React.CSSProperties = {
 		position: 'fixed',
@@ -90,12 +92,10 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
 					style={{maxHeight: '300px'}}
 				/>
 			</Card>
-			{/* </Group> */}
 
 			<Separator />
 
 			<ContentCard
-				// style={cardStyle}
 				subtitle="тут рейтинг"
 				header="Тут название"
 				text="Тут оПисАНие"
