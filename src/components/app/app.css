@@ -9,3 +9,7 @@
   user-select: none;
   -webkit-user-select: none;
 }
+
+#searchField > div:first-child {
+  padding: 0;
+}
