@@ -9,12 +9,14 @@ import {
 	Panel,
 	PanelHeader,
 	PanelHeaderBack,
+	useAppearance,
 } from '@vkontakte/vkui'
 
 import {ErrorSnackbar} from '@/components'
 import {useSnackbarStore} from '@/store'
 
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
+
 
 interface ContentsForBanner extends GroupProps {
 	header?: string
@@ -24,6 +26,7 @@ interface ContentsForBanner extends GroupProps {
 
 export const BannerMain: FC<NavIdProps> = ({header, subheader, url}: ContentsForBanner) => {
 	const setSnackbar = useSnackbarStore.use.setSnackbar()
+	const appearance = useAppearance()
 	return (
 		<Banner
 			mode="image"
@@ -38,7 +41,8 @@ export const BannerMain: FC<NavIdProps> = ({header, subheader, url}: ContentsFor
 			background={
 				<div
 					style={{
-						opacity: '0.3',
+						color: appearance === 'dark' ? 'white' : 'black',
+						opacity: appearance === 'dark' ? '0.3' : '0.8',
 						backgroundColor: '#5b9be6',
 						backgroundImage: `url(${url})`,
 						backgroundPosition: 'center',

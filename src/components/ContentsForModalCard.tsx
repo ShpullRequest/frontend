@@ -60,6 +60,7 @@ export const ContentsForModalCard = ({selected = 'placeholder'}: ContentsForModa
 				<List>
 					<Cell>
 						<MeroCard
+							//@ts-ignore
 							title={card.title}
 							subtitle={card.subtitle}
 							header={card.header}
@@ -71,6 +72,7 @@ export const ContentsForModalCard = ({selected = 'placeholder'}: ContentsForModa
 					</Cell>
 					<Cell>
 						<MeroCard
+							//@ts-ignore
 							title={card.title}
 							subtitle={card.subtitle}
 							header={card.header}
@@ -82,6 +84,7 @@ export const ContentsForModalCard = ({selected = 'placeholder'}: ContentsForModa
 					</Cell>
 					<Cell>
 						<MeroCard
+							//@ts-ignore
 							title={card.title}
 							subtitle={card.subtitle}
 							header={card.header}

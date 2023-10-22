@@ -46,6 +46,7 @@ export const AppInit = () => {
       }
     ]})
     .then((data) => {
+      //@ts-ignore
       if (data.result) {
         // Слайды показаны
       }
