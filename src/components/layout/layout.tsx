@@ -1,8 +1,12 @@
 import {FC, useEffect} from 'react'
+import {FC, useEffect} from 'react'
 
 import {
+	Epic,
+	ModalRoot,
 	PanelHeader,
 	Platform,
+	Root,
 	SplitCol,
 	SplitLayout,
 	usePlatform,
@@ -30,7 +34,8 @@ export const Layout: FC = () => {
 	const setPopout = usePopoutStore.use.setPopout()
 	const snackbar = useSnackbarStore.use.snackbar()
 	const modal = useModalStore.use.modal()
-
+	const clearModal = useModalStore.use.clearModal()
+	// const clearModal = useModalStore.use.clearModal()
 	/** Получаем текущую позицию */
 	const {panelsHistory, view: activeView, panel: activePanel} = useActiveVkuiLocation()
 
@@ -71,7 +76,10 @@ export const Layout: FC = () => {
 		<SplitLayout
 			header={platform !== Platform.VKCOM && <PanelHeader separator={false} />}
 			modal={
-				<ModalRoot activeModal={modal}>
+				<ModalRoot
+					activeModal={modal}
+					onClose={clearModal}
+				>
 					<TestModalCard id="TestModalCard" />
 				</ModalRoot>
 			}
@@ -90,6 +98,7 @@ export const Layout: FC = () => {
 						<Components nav={URL.componentsPanel} />
 						<LocationPicker nav={URL.locationPanel}/>
 					</View>
+
 					<View
 						activePanel={activePanel || URL.personalPanel}
 						nav={URL.personalProfileView}

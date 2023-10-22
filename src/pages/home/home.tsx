@@ -23,6 +23,7 @@ import {Icon28PawOutline, Icon28ChevronRightOutline, Icon28CompassOutline, Icon2
 import {Content} from '@/components/content'
 
 export const Home: FC<NavIdProps> = (props) => {
+export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
 	const router = useRouteNavigator()
 	return (
