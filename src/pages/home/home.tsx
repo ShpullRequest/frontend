@@ -39,8 +39,7 @@ export const Home: FC<NavIdProps> = (props) => {
 				<PanelHeader before={<PanelHeaderBack onClick={() => router.back()} />}>Название страницы</PanelHeader>
 			)}
 			<Map isPanelNav />
-			<Spacing size={8}>
-			</Spacing>
+			<Spacing size={8}></Spacing>
 			<Content>
 				<Div>
 					<Headline
@@ -61,9 +60,7 @@ export const Home: FC<NavIdProps> = (props) => {
 						<div style={{paddingBottom: '66%'}} />
 					</Card>
 				</CardScroll>
-				<Group>
-					Info
-				</Group>
+				<Group>Info</Group>
 			</Content>
 		</Panel>
 	)
