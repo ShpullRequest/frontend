@@ -15,6 +15,11 @@ export enum URL {
     homePanel = "/",
     personalPanel = "/personal",
     organizationPanel = "/organization",
+    filtersPanel = "/filters",
+    prizmaPanel = "/prizma",
+    routePanel = "/route",
+    favoritesPanel = "/favorites",
+    historyPanel = "/history",
 
 
     // old delete later
@@ -28,6 +33,12 @@ export const routes = RoutesConfig.create([
       createView(URL.homeView, [ 
         createPanel(URL.homePanel, URL.homePanel, []),  // Тут основной интерфейс, в который приходит то, что мы отображаем в конкретный момент. Тут будут все кнопочки, блоки и логика
         createPanel(URL.componentsPanel, URL.componentsPanel, []),
+        createPanel(URL.personalPanel, URL.personalPanel, []),
+        createPanel(URL.organizationPanel, URL.organizationPanel, []),
+        createPanel(URL.prizmaPanel, URL.prizmaPanel, []),
+        createPanel(URL.routePanel, URL.routePanel, []),
+        createPanel(URL.favoritesPanel, URL.favoritesPanel, []),
+        createPanel(URL.historyPanel, URL.historyPanel, []),
       ]),
       createView(URL.personalProfileView, [
         createPanel(URL.personalPanel, URL.personalPanel, []), // Тут страница пользователя

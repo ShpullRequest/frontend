@@ -12,6 +12,7 @@ import './app.css'
 
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import { Fallback } from '@/pages'
+import { useUserStore } from '@/store'
 
 export const App: FC = () => {
 	// INFO: VKUI не умеет нормально определять desktop вне фрейма,
@@ -32,9 +33,13 @@ export const App: FC = () => {
 		}
 	}, [])
 
-	// INFO: Отсылаем событие инициализации
+	
+	// INFO: Отсылаем событие инициализации и собираем инфу о пользователе
+	const setUser = useUserStore.use.setUser()
 	useEffect(() => {
 		send('VKWebAppInit')
+		send('VKWebAppGetUserInfo').then((value) => setUser(value))
+		console.log(window.location.href)
 	}, [])
 
 	// INFO: Получаем контекст RaactQuery
