@@ -119,6 +119,18 @@ export const  Home: FC<NavIdProps> = (props) => {
 				>
 					Показать модальную карточку
 				</SimpleCell>
+				<SimpleCell
+					before={<Icon28GhostOutline />}
+					onClick={() => setModal('TestModalCard')}
+				>
+					Покакал
+				</SimpleCell>
+				<SimpleCell
+					before={<Icon28GhostOutline />}
+					onClick={() => setModal('TestModalCard')}
+				>
+					Посикал
+				</SimpleCell>
 			</Group>
 
 			<Group>

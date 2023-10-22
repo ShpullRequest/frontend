@@ -39,6 +39,7 @@ export const User: FC<NavIdProps> = (props) => {
   const clearPopout = usePopoutStore.use.clearPopout()
   const setPopout = usePopoutStore.use.setPopout()
   const setModal = useModalStore.use.setModal()
+  const router = useRouteNavigator()
 
   const { setActionRefHandler } = useActionRef(() =>
     setPopout(<TestActionSheet/>)
@@ -56,7 +57,7 @@ export const User: FC<NavIdProps> = (props) => {
   };
 
 
-  const [contextOpened, setContextOpened] = React.useState(true);
+  const [contextOpened, setContextOpened] = React.useState(false);
   const [mode, setMode] = React.useState('all');
 
   const toggleContext = () => {
@@ -72,7 +73,7 @@ export const User: FC<NavIdProps> = (props) => {
   return (
     <Panel {...props}>
       <PanelHeader
-        before={<PanelHeaderBack label="Назад" />}
+        before={<PanelHeaderBack label="Назад" onClick={() => router.back()}/>}
       >
         <PanelHeaderContent
           status="Любимчик географички"

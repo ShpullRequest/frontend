@@ -8,17 +8,58 @@ export const TestModalCard: FC<NavIdProps> = (props) => {
   const clearModal = useModalStore.use.clearModal()
 
   return (
-    <ModalCard
-      {...props}
-      onClose={clearModal}
-      icon={<Icon56GhostOutline />}
-      header="Открывайте новые модальные карточки"
-      subheader="Чем больше нажатий, тем меньше смысла"
-      actions={
-        <Button size="l" mode="primary" stretched onClick={clearModal}>
-          Больше не буду
-        </Button>
-      }
-    />
-  )
+    <>
+      <ModalCard
+        {...props}
+        onClose={clearModal}
+        icon={<Icon56GhostOutline />}
+        header="Добро пожаловать воин!"
+        subheader="SpbFun - ваш личный гид по развлечениям в Санкт-Петербурге. Поможем вам найти самые интересные маршруты и мероприятия в нашем городе!"
+        actions={
+          <Button
+            size="l"
+            mode="primary"
+            stretched
+            onClick={clearModal}
+          >
+            Интересненько!
+          </Button>
+        }
+      />
+      <ModalCard
+        {...props}
+        onClose={clearModal}
+        icon={<Icon56GhostOutline />}
+        header="Добро пожаловать воин!"
+        subheader="SpbFun - ваш личный гид по развлечениям в Санкт-Петербурге. Поможем вам найти самые интересные маршруты и мероприятия в нашем городе!"
+        actions={
+          <Button
+            size="l"
+            mode="primary"
+            stretched
+            onClick={clearModal}
+          >
+            Интересненько!
+          </Button>
+        }
+        />
+      <ModalCard
+        {...props}
+        onClose={clearModal}
+        icon={<Icon56GhostOutline />}
+        header="Добро пожаловать воин!"
+        subheader="SpbFun - ваш личный гид по развлечениям в Санкт-Петербурге. Поможем вам найти самые интересные маршруты и мероприятия в нашем городе!"
+        actions={
+          <Button
+            size="l"
+            mode="primary"
+            stretched
+            onClick={clearModal}
+          >
+            Интересненько!
+          </Button>
+        }
+      />
+		</>
+	)
 }

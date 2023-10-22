@@ -24,7 +24,15 @@ import './layout.css'
 import {useModalStore, usePopoutStore, useSnackbarStore} from '@/store'
 import {useActiveVkuiLocation} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
-import { User } from "@pages/user";
+import {User} from '@pages/user'
+
+function FavoritePanel(props: {nav: URL.favoritePanel}) {
+	return null
+}
+
+function PersonalHistory(props: {nav: URL.historyPanel}) {
+	return null
+}
 
 export const Layout: FC = () => {
 	const platform = usePlatform()
@@ -69,6 +77,8 @@ export const Layout: FC = () => {
 						history={panelsHistory}
 					>
 						<User nav={URL.personalPanel} />
+						<FavoritePanel nav={URL.favoritePanel} />
+						<PersonalHistory nav={URL.historyPanel} />
 					</View>
 				</Root>
 

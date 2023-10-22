@@ -20,6 +20,8 @@ export enum URL {
     // old delete later
     persikPanel = "/persik",
     componentsPanel = "/components",
+    favoritePanel = "/favorite",
+    historyPanel = "/history",
     infoPanel = "/info",
 }
 
@@ -31,6 +33,8 @@ export const routes = RoutesConfig.create([
       ]),
       createView(URL.personalProfileView, [
         createPanel(URL.personalPanel, URL.personalPanel, []), // Тут страница пользователя
+        createPanel(URL.favoritePanel, URL.favoritePanel, []),
+        createPanel(URL.historyPanel, URL.historyPanel, []),
       ]),
       createView(URL.organizationProfileView, [
         createPanel(URL.organizationPanel, URL.organizationPanel, []), // Тут страница организатора
