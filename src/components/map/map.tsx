@@ -10,7 +10,7 @@ import {useUserStore} from '@/store'
 import {useRouteNavigator} from '@vkontakte/vk-mini-apps-router'
 import {URL} from '@/router'
 import {ContentPanel} from '@/components/content'
-import { parseCoordinates } from '@/helpers'
+import {parseCoordinates} from '@/helpers'
 
 interface Map extends React.HTMLAttributes<HTMLDivElement> {
 	isPanelNav?: boolean
@@ -117,7 +117,9 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 			className={minified ? 'mapLayout--mobMini' : 'mapLayout--mob'}
 		>
 			<div className="mapNavWrapper">
-				<div className="mapNav--mob">{isPanelNav && <SimpleSearch mobile={true} />}</div>
+				<div className="mapNav--mob">
+					{isPanelNav && <SimpleSearch mobile={true} />}
+				</div>
 			</div>
 			<Avatar
 				className="mapNavButton"
@@ -128,6 +130,7 @@ export const Map = ({isPanelNav = false, minified = false, ...props}: Map) => {
 				gradientColor={5}
 				withBorder={false}
 			/>
+			{isPanelNav && <ContentPanel className="mapBottomNav" />}
 		</div>
 	) : (
 		<div
