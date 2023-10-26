@@ -29,8 +29,7 @@ import {useQuery, useQueryClient} from '@tanstack/react-query'
 import {ApiService} from '@/services'
 import {BannerMain} from '@/components/BannerMain'
 import {Components} from '../components'
-import { Banners } from '@/const'
-
+import {Banners} from '@/const'
 
 export const Home: FC<NavIdProps> = (props) => {
 	const platform = usePlatform()
@@ -70,6 +69,7 @@ export const Home: FC<NavIdProps> = (props) => {
 								<HorizontalCell size="l">
 									<BannerMain
 										key={key}
+										// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 										//@ts-ignore
 										header={banner.title}
 										subheader={banner.subtitle}

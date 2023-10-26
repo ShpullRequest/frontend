@@ -49,6 +49,7 @@ export const Components: FC<NavIdProps> = (props) => {
 						return (
 							<MeroCard
 								key={key}
+								// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 								//@ts-ignore
 								title={card.title}
 								subtitle={card.subtitle}
